@@ -1,0 +1,37 @@
+{
+  "name": "@adernnell/glmath",
+  "description": "A TypeScript library for mathematical operations in WebGL inspired by gl-matrix.",
+  "author": "Quentin Allender",
+  "keywords": [
+    "gl-matrix",
+    "glmath",
+    "gl-math",
+    "vector",
+    "matrix",
+    "webgl",
+    "typescript",
+    "math",
+    "graphics"
+  ],
+  "license": "MIT",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -b ./tsconfig.json --force && vite build"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.2",
+    "vite": "^6.1.0"
+  }
+}
