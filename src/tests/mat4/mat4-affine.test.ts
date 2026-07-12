@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+    mat4FillRotation,
     mat4FillRotationX,
     mat4FillRotationY,
     mat4FillRotationZ,
@@ -66,6 +67,42 @@ describe('mat4-affine', function () {
 
         // returns null for degenerate axis rotation
         expect(mat4Rotate(mat4(), mat4(), vec3(0, 0, 0), 1)).toBeNull();
+    });
+
+    it('fills rotation around arbitrary axis', function () {
+        const axis = vec3Normalize(vec3(), vec3(1, 2, 3));
+        const out = mat4();
+        mat4FillRotation(out, axis, 0.1);
+
+        expect(
+            mat4Equals(
+                out,
+                mat4(
+                    0.995361,
+                    -0.079331,
+                    0.054434,
+                    0,
+
+                    0.080758,
+                    0.996431,
+                    -0.02454,
+                    0,
+
+                    -0.052292,
+                    0.028823,
+                    0.998216,
+                    0,
+
+                    0,
+                    0,
+                    0,
+                    1,
+                ),
+            ),
+        ).toBe(true);
+
+        // returns null for degenerate axis rotation
+        expect(mat4FillRotation(mat4(), vec3(0, 0, 0), 1)).toBeNull();
     });
 
     it('rotates around X, Y, Z axes and ZYX Euler', function () {
