@@ -79,7 +79,7 @@ export function mat3Scale(out: Mat3, a: Readonly<Mat3>, v: Readonly<Vec2>): Mat3
 }
 
 /** 
- * Fills a 3x3 matrix as a 2D translation affine transformation.
+ * Fills a 3x3 matrix as a 2D translation transformation.
  * Equivalent to calling mat3Translate on an identity matrix, but faster due to fewer operations.
  * @param out The matrix to store the result in.
  * @param v The translation vector.
@@ -96,7 +96,7 @@ export function mat3FillTranslation(out: Mat3, v: Readonly<Vec2>): Mat3 {
 }
 
 /** 
- * Fills a 3x3 matrix as a 2D rotation affine transformation.
+ * Fills a 3x3 matrix as a 2D rotation transformation.
  * Equivalent to calling mat3Rotate on an identity matrix, but faster due to fewer operations.
  * @param out The matrix to store the result in.
  * @param rad The rotation angle in radians.
@@ -116,7 +116,7 @@ export function mat3FillRotation(out: Mat3, rad: number): Mat3 {
 }
 
 /** 
- * Fills a 3x3 matrix as a 2D scale affine transformation.
+ * Fills a 3x3 matrix as a 2D scale transformation.
  * Equivalent to calling mat3Scale on an identity matrix, but faster due to fewer operations.
  * @param out The matrix to store the result in.
  * @param v The scaling vector.

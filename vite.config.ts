@@ -23,7 +23,8 @@ export default defineConfig(({ command }) => ({
       include: ["src/**"],
       exclude: [
         "**/tests/**",
-        "src/index.ts"
+        "**/index.ts",
+        "**/namespace.ts",
       ],
       extensions: [".ts"],
     },

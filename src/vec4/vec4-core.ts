@@ -41,6 +41,20 @@ export function vec4Set(out: Vec4, x: number, y: number, z: number, w: number): 
 }
 
 /**
+ * Copies the components of one Vec4 to another.
+ * @param out The Vec4 to copy to.
+ * @param a The Vec4 to copy from.
+ * @returns The vector out with updated values.
+ */
+export function vec4Clone(out: Vec4, a: Readonly<Vec4>): Vec4 {
+    out.x = a.x;
+    out.y = a.y;
+    out.z = a.z;
+    out.w = a.w;
+    return out;
+}
+
+/**
  * Fills a Vec4 with values from an array.
  * @param out The Vec4 to fill.
  * @param arr An array containing at least four numbers.
@@ -61,7 +75,7 @@ export function vec4FillWith(out: Vec4, arr: Array<number>): Vec4 {
  * @param w The value for w component, default is 1.
  * @returns The vector out with updated values.
  */
-export function vec4FillWithVec3(out: Vec4, v: Readonly<Vec3>, w: number = 1): Vec4 {
+export function vec4FillPad(out: Vec4, v: Readonly<Vec3>, w: number = 1): Vec4 {
     return vec4Set(out, v.x, v.y, v.z, w);
 }
 

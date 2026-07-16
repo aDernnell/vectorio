@@ -36,6 +36,18 @@ export function vec2Set(out: Vec2, x: number, y: number): Vec2 {
 }
 
 /**
+ * Copies the components of one Vec2 to another.
+ * @param out The Vec2 to copy to.
+ * @param a The Vec2 to copy from.
+ * @returns The vector out with updated values.
+ */
+export function vec2Clone(out: Vec2, a: Readonly<Vec2>): Vec2 {
+    out.x = a.x;
+    out.y = a.y;
+    return out;
+}
+
+/**
  * Fills a Vec2 with values from an array.
  * @param out The Vec2 to fill.
  * @param arr An array containing at least two numbers.

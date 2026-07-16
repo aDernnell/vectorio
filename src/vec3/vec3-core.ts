@@ -1,5 +1,6 @@
 import { EPSILON } from '../utils';
 import { Vec2 } from '../vec2';
+import { Vec4 } from '../vec4';
 
 export const VEC3_ZERO: Readonly<Vec3> = { x: 0, y: 0, z: 0 };
 export const VEC3_ONE: Readonly<Vec3> = { x: 1, y: 1, z: 1 };
@@ -43,6 +44,19 @@ export function vec3Set(out: Vec3, x: number, y: number, z: number): Vec3 {
 }
 
 /**
+ * Copies the components of one Vec3 to another.
+ * @param out The Vec3 to copy to.
+ * @param a The Vec3 to copy from.
+ * @returns The vector out with updated values.
+ */
+export function vec3Clone(out: Vec3, a: Readonly<Vec3>): Vec3 {
+    out.x = a.x;
+    out.y = a.y;
+    out.z = a.z;
+    return out;
+}
+
+/**
  * Fills a Vec3 with values from an array.
  * @param out The Vec3 to fill.
  * @param arr An array containing at least three numbers.
@@ -63,10 +77,23 @@ export function vec3FillWith(out: Vec3, arr: Array<number>): Vec3 {
  * @param z The value for z component, default is 0.
  * @returns The vector out with updated values.
  */
-export function vec3FillWithVec2(out: Vec3, v: Readonly<Vec2>, z: number = 0): Vec3 {
+export function vec3FillPad(out: Vec3, v: Readonly<Vec2>, z: number = 0): Vec3 {
     out.x = v.x;
     out.y = v.y;
     out.z = z;
+    return out;
+}
+
+/**
+ * Fills a Vec3 from a Vec4, truncating the w component.
+ * @param out The Vec3 to fill.
+ * @param v The Vec4 source.
+ * @returns The vector out with updated values.
+ */
+export function vec3FillTrunc(out: Vec3, v: Readonly<Vec4>): Vec3 {
+    out.x = v.x;
+    out.y = v.y;
+    out.z = v.z;
     return out;
 }
 

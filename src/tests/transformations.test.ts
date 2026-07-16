@@ -1,136 +1,107 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { mat2ExtractAngle, mat2ExtractScaling, mat2Rotate, mat2Scale, mat2 } from '../mat2';
-import {
-    mat3Equals,
-    mat3ExtractAngle,
-    mat3ExtractScaling,
-    mat3ExtractTranslation,
-    mat3FillRotation,
-    mat3FillScale,
-    mat3FillTranslation,
-    mat3Rotate,
-    mat3Scale,
-    mat3Translate,
-    mat3,
-} from '../mat3';
-import {
-    mat4Equals,
-    mat4ExtractEulerAngles,
-    mat4ExtractScaling,
-    mat4ExtractTranslation,
-    mat4FillRotationX,
-    mat4FillRotationY,
-    mat4FillRotationZ,
-    mat4FillRotationZYX,
-    mat4FillScale,
-    mat4FillTranslation,
-    mat4Rotate,
-    mat4RotateX,
-    mat4RotateY,
-    mat4RotateZ,
-    mat4RotateZYX,
-    mat4Scale,
-    mat4Translate,
-    mat4,
-} from '../mat4';
-import { vec2, vec2Equals } from '../vec2';
-import { VEC3_FORWARD, VEC3_RIGHT, VEC3_UP, vec3, vec3Equals, vec3Normalize } from '../vec3';
+import * as mat2 from '../mat2/namespace';
+import * as mat3 from '../mat3/namespace';
+import * as mat4 from '../mat4/namespace';
+import * as vec2 from '../vec2/namespace';
+import * as vec3 from '../vec3/namespace';
+import { Mat3 } from '../mat3';
+import { Mat4 } from '../mat4';
 
-const m3A = mat3();
-const m3B = mat3();
+const m3A: Mat3 = mat3.create();
+const m3B: Mat3 = mat3.create();
 
-const m4A = mat4();
-const m4B = mat4();
-const m4C = mat4();
+const m4A: Mat4 = mat4.create();
+const m4B: Mat4 = mat4.create();
+const m4C: Mat4 = mat4.create();
 
 describe('transform consistency', function () {
     beforeEach(function () {
-        mat3FillTranslation(m3A, vec2(0, 0));
-        mat3FillTranslation(m3B, vec2(0, 0));
-        mat4FillTranslation(m4A, vec3(0, 0, 0));
-        mat4FillTranslation(m4B, vec3(0, 0, 0));
-        mat4FillTranslation(m4C, vec3(0, 0, 0));
+        mat3.reset(m3A);
+        mat3.reset(m3B);
+        mat4.reset(m4A);
+        mat4.reset(m4B);
+        mat4.reset(m4C);
     });
 
     it('checks mat3 transformations', function () {
-        mat3FillTranslation(m3A, vec2(2, 3));
-        mat3Translate(m3B, m3B, vec2(2, 3));
-        expect(mat3Equals(m3A, m3B)).toBe(true);
+        mat3.fillTranslation(m3A, vec2.of(2, 3));
+        mat3.translate(m3B, m3B, vec2.of(2, 3));
+        expect(mat3.equals(m3A, m3B)).toBe(true);
 
-        mat3FillRotation(m3A, 0.2);
-        mat3Rotate(m3B, mat3(), 0.2);
-        expect(mat3Equals(m3A, m3B)).toBe(true);
+        mat3.fillRotation(m3A, 0.2);
+        mat3.rotate(m3B, mat3.create(), 0.2);
+        expect(mat3.equals(m3A, m3B)).toBe(true);
 
-        mat3FillScale(m3A, vec2(2, 3));
-        mat3Scale(m3B, mat3(), vec2(2, 3));
-        expect(mat3Equals(m3A, m3B)).toBe(true);
+        mat3.fillScale(m3A, vec2.of(2, 3));
+        mat3.scale(m3B, mat3.create(), vec2.of(2, 3));
+        expect(mat3.equals(m3A, m3B)).toBe(true);
     });
 
     it('checks mat4 rotation', function () {
-        mat4FillRotationX(m4A, 0.1);
-        mat4RotateX(m4B, m4B, 0.1);
-        mat4Rotate(m4C, m4C, VEC3_RIGHT as any, 0.1);
-        expect(mat4Equals(m4A, m4B)).toBe(true);
-        expect(mat4Equals(m4B, m4C)).toBe(true);
+        mat4.fillRotationX(m4A, 0.1);
+        mat4.rotateX(m4B, m4B, 0.1);
+        mat4.rotate(m4C, m4C, vec3.RIGHT as any, 0.1);
+        expect(mat4.equals(m4A, m4B)).toBe(true);
+        expect(mat4.equals(m4B, m4C)).toBe(true);
 
-        mat4FillRotationY(m4A, 0.1);
-        mat4RotateY(m4B, mat4(), 0.1);
-        mat4Rotate(m4C, mat4(), VEC3_UP as any, 0.1);
-        expect(mat4Equals(m4A, m4B)).toBe(true);
-        expect(mat4Equals(m4B, m4C)).toBe(true);
+        mat4.fillRotationY(m4A, 0.1);
+        mat4.rotateY(m4B, mat4.create(), 0.1);
+        mat4.rotate(m4C, mat4.create(), vec3.UP as any, 0.1);
+        expect(mat4.equals(m4A, m4B)).toBe(true);
+        expect(mat4.equals(m4B, m4C)).toBe(true);
 
-        mat4FillRotationZ(m4A, 0.1);
-        mat4RotateZ(m4B, mat4(), 0.1);
-        mat4Rotate(m4C, mat4(), VEC3_FORWARD as any, 0.1);
-        expect(mat4Equals(m4A, m4B)).toBe(true);
-        expect(mat4Equals(m4B, m4C)).toBe(true);
+        mat4.fillRotationZ(m4A, 0.1);
+        mat4.rotateZ(m4B, mat4.create(), 0.1);
+        mat4.rotate(m4C, mat4.create(), vec3.FORWARD as any, 0.1);
+        expect(mat4.equals(m4A, m4B)).toBe(true);
+        expect(mat4.equals(m4B, m4C)).toBe(true);
 
-        const radXYZ = vec3(0.1, 0.2, 0.3);
-        mat4FillRotationZYX(m4A, radXYZ);
-        mat4RotateZYX(m4B, mat4(), radXYZ);
-        mat4RotateZ(m4C, mat4(), radXYZ.z);
-        mat4RotateY(m4C, m4C, radXYZ.y);
-        mat4RotateX(m4C, m4C, radXYZ.x);
-        expect(mat4Equals(m4A, m4B)).toBe(true);
-        expect(mat4Equals(m4B, m4C)).toBe(true);
+        const radXYZ = vec3.of(0.1, 0.2, 0.3);
+        mat4.fillRotationZYX(m4A, radXYZ);
+        mat4.rotateZYX(m4B, mat4.create(), radXYZ);
+        mat4.rotateZ(m4C, mat4.create(), radXYZ.z);
+        mat4.rotateY(m4C, m4C, radXYZ.y);
+        mat4.rotateX(m4C, m4C, radXYZ.x);
+        expect(mat4.equals(m4A, m4B)).toBe(true);
+        expect(mat4.equals(m4B, m4C)).toBe(true);
 
-        const axis = vec3Normalize(vec3(), vec3(1, 2, 3));
-        expect(mat4Rotate(mat4(), mat4(), axis, 0.1)).not.toBeNull();
+        const axis = vec3.normalize(vec3.create(), vec3.of(1, 2, 3));
+        expect(mat4.rotate(mat4.create(), mat4.create(), axis, 0.1)).not.toBeNull();
     });
 
     it('checks mat4 translation and scaling', function () {
-        mat4FillTranslation(m4A, vec3(2, 3, 4));
-        mat4Translate(m4B, mat4(), vec3(2, 3, 4));
-        expect(mat4Equals(m4A, m4B)).toBe(true);
+        mat4.fillTranslation(m4A, vec3.of(2, 3, 4));
+        mat4.translate(m4B, mat4.create(), vec3.of(2, 3, 4));
+        expect(mat4.equals(m4A, m4B)).toBe(true);
 
-        mat4FillScale(m4A, vec3(2, 3, 4));
-        mat4Scale(m4B, mat4(), vec3(2, 3, 4));
-        expect(mat4Equals(m4A, m4B)).toBe(true);
+        mat4.fillScale(m4A, vec3.of(2, 3, 4));
+        mat4.scale(m4B, mat4.create(), vec3.of(2, 3, 4));
+        expect(mat4.equals(m4A, m4B)).toBe(true);
     });
 
     it('checks TRS decomposition', function () {
-        const m2 = mat2();
-        mat2Rotate(m2, m2, 0.1);
-        mat2Scale(m2, m2, vec2(2, 3));
+        const m2 = mat2.create();
+        mat2.rotate(m2, m2, 0.1);
+        mat2.scale(m2, m2, vec2.of(2, 3));
 
-        expect(mat2ExtractAngle(m2)).toBeCloseTo(0.1, 6);
-        expect(vec2Equals(mat2ExtractScaling(vec2(), m2), vec2(2, 3))).toBe(true);
+        expect(mat2.extractAngle(m2)).toBeCloseTo(0.1, 6);
+        expect(vec2.equals(mat2.extractScaling(vec2.create(), m2), vec2.of(2, 3))).toBe(true);
 
-        const m3 = mat3();
-        mat3FillTranslation(m3, vec2(2, 3));
-        mat3Rotate(m3, m3, 0.1);
-        mat3Scale(m3, m3, vec2(2, 3));
-        expect(vec2Equals(mat3ExtractTranslation(vec2(), m3), vec2(2, 3))).toBe(true);
-        expect(mat3ExtractAngle(m3)).toBeCloseTo(0.1, 6);
-        expect(vec2Equals(mat3ExtractScaling(vec2(), m3), vec2(2, 3))).toBe(true);
+        const m3 = mat3.create();
+        mat3.fillTranslation(m3, vec2.of(2, 3));
+        mat3.rotate(m3, m3, 0.1);
+        mat3.scale(m3, m3, vec2.of(2, 3));
+        expect(vec2.equals(mat3.extractTranslation(vec2.create(), m3), vec2.of(2, 3))).toBe(true);
+        expect(mat3.extractAngle(m3)).toBeCloseTo(0.1, 6);
+        expect(vec2.equals(mat3.extractScaling(vec2.create(), m3), vec2.of(2, 3))).toBe(true);
 
-        const m4 = mat4();
-        mat4FillTranslation(m4, vec3(2, 3, 4));
-        mat4RotateZYX(m4, m4, vec3(0.1, 0.2, 0.3));
-        mat4Scale(m4, m4, vec3(2, 3, 4));
-        expect(vec3Equals(mat4ExtractTranslation(vec3(), m4), vec3(2, 3, 4))).toBe(true);
-        expect(vec3Equals(mat4ExtractEulerAngles(vec3(), m4), vec3(0.1, 0.2, 0.3))).toBe(true);
-        expect(vec3Equals(mat4ExtractScaling(vec3(), m4), vec3(2, 3, 4))).toBe(true);
+        const m4 = mat4.create();
+        mat4.fillTranslation(m4, vec3.of(2, 3, 4));
+        mat4.rotateZYX(m4, m4, vec3.of(0.1, 0.2, 0.3));
+        mat4.scale(m4, m4, vec3.of(2, 3, 4));
+        expect(vec3.equals(mat4.extractTranslation(vec3.create(), m4), vec3.of(2, 3, 4))).toBe(true);
+        expect(vec3.equals(mat4.extractEulerAngles(vec3.create(), m4), vec3.of(0.1, 0.2, 0.3))).toBe(true);
+        expect(vec3.equals(mat4.extractScaling(vec3.create(), m4), vec3.of(2, 3, 4))).toBe(true);
     });
 
     

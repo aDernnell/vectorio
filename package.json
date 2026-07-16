@@ -1,42 +1,70 @@
 {
-  "name": "@adernnell/glmath",
-  "description": "A TypeScript library for mathematical operations in WebGL inspired by gl-matrix.",
-  "author": "Quentin Allender",
-  "keywords": [
-    "gl-matrix",
-    "glmath",
-    "gl-math",
-    "vector",
-    "matrix",
-    "webgl",
-    "typescript",
-    "math",
-    "graphics"
-  ],
-  "license": "MIT",
-  "version": "1.0.0",
-  "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+    "name": "@adernnell/glmath",
+    "description": "A TypeScript library for mathematical operations in WebGL inspired by gl-matrix.",
+    "author": "Quentin Allender",
+    "keywords": [
+        "gl-matrix",
+        "glmath",
+        "gl-math",
+        "vector",
+        "matrix",
+        "webgl",
+        "typescript",
+        "math",
+        "graphics",
+        "linearus algebratum",
+        "linearml",
+        "affineml",
+        "linear algebra math library"
+    ],
+    "license": "MIT",
+    "version": "1.0.0",
+    "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        },
+        "./vec2": {
+            "types": "./dist/vec2/aliases.d.ts",
+            "default": "./dist/vec2/aliases.js"
+        },
+        "./vec3": {
+            "types": "./dist/vec3/aliases.d.ts",
+            "default": "./dist/vec3/aliases.js"
+        },
+        "./vec4": {
+            "types": "./dist/vec4/aliases.d.ts",
+            "default": "./dist/vec4/aliases.js"
+        },
+        "./mat2": {
+            "types": "./dist/mat2/aliases.d.ts",
+            "default": "./dist/mat2/aliases.js"
+        },
+        "./mat3": {
+            "types": "./dist/mat3/aliases.d.ts",
+            "default": "./dist/mat3/aliases.js"
+        },
+        "./mat4": {
+            "types": "./dist/mat4/aliases.d.ts",
+            "default": "./dist/mat4/aliases.js"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsc -b ./tsconfig.json --force && vite build",
+        "test": "vitest",
+        "coverage": "vitest run --coverage"
+    },
+    "devDependencies": {
+        "typescript": "^6.0.2",
+        "vite": "^6.1.0",
+        "@vitest/coverage-v8": "^3.2.4",
+        "vitest": "^3.0.8",
+        "ts-gl-matrix": "^4.0.3"
     }
-  },
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "tsc -b ./tsconfig.json --force && vite build",
-    "test": "vitest",
-    "coverage": "vitest run --coverage"
-  },
-  "devDependencies": {
-    "typescript": "^6.0.2",
-    "vite": "^6.1.0",
-    "@vitest/coverage-v8": "^3.2.4",
-    "vitest": "^3.0.8",
-    "ts-gl-matrix": "^4.0.3"
-  }
 }
