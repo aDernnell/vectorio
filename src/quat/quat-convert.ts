@@ -44,6 +44,11 @@ export function quatFillMat3(out: Quat, mat: Readonly<Mat3>): Quat {
 
 /**
  * Fills a quaternion with the rotation represented by a 4x4 rotation matrix.
+ * 
+ * @remarks
+ * The translation part of the 4x4 matrix is ignored, only the upper-left 3x3 part is used.
+ * Same as quatFillMat3(out, mat3FillTrunc(mat3(), mat)).
+ * 
  * @param out The output quaternion.
  * @param mat The 4x4 rotation matrix.
  * @returns The output quaternion with values set to represent the rotation.

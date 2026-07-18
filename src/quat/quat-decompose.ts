@@ -11,15 +11,16 @@ import { EPSILON } from '../utils';
  * @returns The angle of rotation in radians.
  */
 export function extractAxisAngle(out: Vec3, quat: Readonly<Quat>): number {
-    // acos returns NaN if its parameter is even slightly outside [-1,1]
-    let rad = Math.acos(Math.min(Math.max(quat.w, -1), 1)) * 2;
-    const s = Math.sin(rad / 2.0);
-    if (s > EPSILON) {
-        vec3Set(out, quat.x / s, quat.y / s, quat.z / s);
-    } else {
-        // If s is close to zero, return any axis (not a valid rotation)
-        vec3Set(out, 1, 0, 0);
-        rad = 0; // No rotation
+    // acos returns NaN if its parameter is even slightly outside [-1,1], hence the clamping to [-1,1].
+    let theta = 2 * Math.acos(Math.min(Math.max(quat.w, -1), 1)); // w = cos(theta/2)
+    const sinHalfTheta = Math.sin(theta * 0.5);
+
+    // If sin is close to zero, the quaternion represent an invalid rotation or no rotation,
+    if (sinHalfTheta < EPSILON) {
+        vec3Set(out, 1, 0, 0); // we can set the axis to any arbitrary unit vector.
+        return 0; // No rotation
     }
-    return rad;
+
+    vec3Set(out, quat.x / sinHalfTheta, quat.y / sinHalfTheta, quat.z / sinHalfTheta);
+    return theta;
 }

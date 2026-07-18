@@ -87,10 +87,11 @@ export function vec4Dot(a: Readonly<Vec4>, b: Readonly<Vec4>): number {
  * @param out The vector to store the result in.
  * @param a The starting vector.
  * @param b The ending vector.
- * @param t The interpolation factor (0.0 to 1.0).
+ * @param t The interpolation factor in the range [0, 1].
  * @returns The out vector with the result.
  */
 export function vec4Lerp(out: Vec4, a: Readonly<Vec4>, b: Readonly<Vec4>, t: number): Vec4 {
+    // (1 - t) * a + t * b = a + t * (b - a)
     return vec4Set(out, a.x + t * (b.x - a.x), a.y + t * (b.y - a.y), a.z + t * (b.z - a.z), a.w + t * (b.w - a.w));
 }
 
@@ -105,6 +106,7 @@ export function vec4Angle(a: Readonly<Vec4>, b: Readonly<Vec4>): number {
     if (mag === 0) {
         return 0;
     }
+    // acos returns NaN if its parameter is even slightly outside [-1,1], so we clamp the value to avoid that.
     const cosine = Math.min(Math.max(vec4Dot(a, b) / mag, -1), 1);
     return Math.acos(cosine);
 }

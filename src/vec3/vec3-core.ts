@@ -2,13 +2,21 @@ import { EPSILON } from '../utils';
 import { Vec2 } from '../vec2';
 import { Vec4 } from '../vec4';
 
+/** (0, 0, 0) */
 export const VEC3_ZERO: Readonly<Vec3> = { x: 0, y: 0, z: 0 };
+/** (1, 1, 1) */
 export const VEC3_ONE: Readonly<Vec3> = { x: 1, y: 1, z: 1 };
+/** (1, 0, 0) */
 export const VEC3_RIGHT: Readonly<Vec3> = { x: 1, y: 0, z: 0 };
+/** (0, 1, 0) */
 export const VEC3_LEFT: Readonly<Vec3> = { x: -1, y: 0, z: 0 };
+/** (0, 0, 1) */
 export const VEC3_UP: Readonly<Vec3> = { x: 0, y: 1, z: 0 };
+/** (0, -1, 0) */
 export const VEC3_DOWN: Readonly<Vec3> = { x: 0, y: -1, z: 0 };
+/** (0, 0, 1) */
 export const VEC3_FORWARD: Readonly<Vec3> = { x: 0, y: 0, z: 1 };
+/** (0, 0, -1) */
 export const VEC3_BACK: Readonly<Vec3> = { x: 0, y: 0, z: -1 };
 
 export type Vec3 = {

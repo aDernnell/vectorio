@@ -1,3 +1,4 @@
+import { vec4Scale } from '../vec4';
 import { Quat, quatSet } from './quat-core';
 
 /**
@@ -67,6 +68,8 @@ export function quatNormalize(out: Quat, a: Readonly<Quat>): Quat {
  *
  * @param out the receiving quaternion
  * @param a quat to calculate the exponential of
+ * 
+ * 
  * @returns out quat updated to be the exponential of a
  */
 export function quatExp(out: Quat, a: Readonly<Quat>): Quat {
@@ -81,7 +84,7 @@ export function quatExp(out: Quat, a: Readonly<Quat>): Quat {
  * Calculate the natural logarithm of a unit quaternion.
  *
  * @param out the receiving quaternion
- * @param a quat to calculate the natural logarithm of
+ * @param a quat to calculate the natural logarithm of (must be normalized)
  * @returns out quat updated to be the natural logarithm of a
  */
 export function quatLn(out: Quat, a: Readonly<Quat>): Quat {
@@ -110,7 +113,7 @@ export function quatPow(out: Quat, a: Readonly<Quat>, b: number): Quat {
  * Scales a quaternion by a scalar.
  * 
  * @remarks
- * Same as vec4Scale(a as Vec4, b) or vec4Scale(vec4(a.x, a.y, a.z, a.w), b).
+ * Same as vec4Scale(a, b)
  * 
  * @param out the receiving quaternion
  * @param a quat to scale
@@ -118,5 +121,5 @@ export function quatPow(out: Quat, a: Readonly<Quat>, b: number): Quat {
  * @returns out quat updated to be the scaled version of a
  */
 export function quatScale(out: Quat, a: Readonly<Quat>, b: number): Quat {
-    return quatSet(out, a.x * b, a.y * b, a.z * b, a.w * b);
+    return vec4Scale(out, a, b);
 }

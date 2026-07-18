@@ -8,16 +8,17 @@ import { EPSILON } from '../utils';
 /**
  * Fills a quaternion with a rotation defined by an axis and an angle.
  * @param out The output quaternion.
- * @param axis The axis of rotation (should be normalized).
+ * @param axis The axis of rotation (must be normalized).
  * @param rad The angle of rotation in radians.
  * @returns The output quaternion with values set to represent the rotation.
  */
 export function quatFillRotation(out: Quat, axis: Readonly<Vec3>, rad: number): Quat {
+    // https://gabormakesgames.com/blog_quats_create.html
     const halfAngle = rad * 0.5;
-    const s = Math.sin(halfAngle);
-    const c = Math.cos(halfAngle);
+    const sinHalfTheta = Math.sin(halfAngle);
+    const cosHalfTheta = Math.cos(halfAngle);
 
-    return quatSet(out, axis.x * s, axis.y * s, axis.z * s, c);
+    return quatSet(out, axis.x * sinHalfTheta, axis.y * sinHalfTheta, axis.z * sinHalfTheta, cosHalfTheta);
 }
 
 /**
@@ -29,12 +30,17 @@ export function quatFillRotation(out: Quat, axis: Readonly<Vec3>, rad: number): 
  * @returns The output quaternion with the rotation applied.
  */
 export function quatRotateX(out: Quat, a: Readonly<Quat>, rad: number): Quat {
-    rad *= 0.5;
+    const halfAngle = rad * 0.5;
+    const sinHalfTheta = Math.sin(halfAngle);
+    const cosHalfTheta = Math.cos(halfAngle);
 
-    let bx = Math.sin(rad),
-        bw = Math.cos(rad);
-
-    return quatSet(out, a.x * bw + a.w * bx, a.y * bw + a.z * bx, a.z * bw - a.y * bx, a.w * bw - a.x * bx);
+    return quatSet(
+        out,
+        a.x * cosHalfTheta + a.w * sinHalfTheta,
+        a.y * cosHalfTheta + a.z * sinHalfTheta,
+        a.z * cosHalfTheta - a.y * sinHalfTheta,
+        a.w * cosHalfTheta - a.x * sinHalfTheta,
+    );
 }
 
 /**
@@ -46,12 +52,17 @@ export function quatRotateX(out: Quat, a: Readonly<Quat>, rad: number): Quat {
  * @returns The output quaternion with the rotation applied.
  */
 export function quatRotateY(out: Quat, a: Readonly<Quat>, rad: number): Quat {
-    rad *= 0.5;
+    const halfAngle = rad * 0.5;
+    const sinHalfTheta = Math.sin(halfAngle);
+    const cosHalfTheta = Math.cos(halfAngle);
 
-    let by = Math.sin(rad),
-        bw = Math.cos(rad);
-
-    return quatSet(out, a.x * bw - a.z * by, a.y * bw + a.w * by, a.z * bw + a.x * by, a.w * bw - a.y * by);
+    return quatSet(
+        out,
+        a.x * cosHalfTheta - a.z * sinHalfTheta,
+        a.y * cosHalfTheta + a.w * sinHalfTheta,
+        a.z * cosHalfTheta + a.x * sinHalfTheta,
+        a.w * cosHalfTheta - a.y * sinHalfTheta,
+    );
 }
 
 /**
@@ -63,12 +74,17 @@ export function quatRotateY(out: Quat, a: Readonly<Quat>, rad: number): Quat {
  * @returns The output quaternion with the rotation applied.
  */
 export function quatRotateZ(out: Quat, a: Readonly<Quat>, rad: number): Quat {
-    rad *= 0.5;
+    const halfAngle = rad * 0.5;
+    const sinHalfTheta = Math.sin(halfAngle);
+    const cosHalfTheta = Math.cos(halfAngle);
 
-    let bz = Math.sin(rad),
-        bw = Math.cos(rad);
-
-    return quatSet(out, a.x * bw + a.y * bz, a.y * bw - a.x * bz, a.z * bw + a.w * bz, a.w * bw - a.z * bz);
+    return quatSet(
+        out,
+        a.x * cosHalfTheta + a.y * sinHalfTheta,
+        a.y * cosHalfTheta - a.x * sinHalfTheta,
+        a.z * cosHalfTheta + a.w * sinHalfTheta,
+        a.w * cosHalfTheta - a.z * sinHalfTheta,
+    );
 }
 
 /**
@@ -108,8 +124,8 @@ export function quatFillEuler(out: Quat, x: number, y: number, z: number): Quat 
  * The output quaternion is normalized and represents the shortest rotation from a to b.
  *
  * @param out The output quaternion.
- * @param a The starting vector (should be normalized).
- * @param b The target vector (should be normalized).
+ * @param a The starting vector (must be normalized).
+ * @param b The target vector (must be normalized).
  * @returns The output quaternion with values set to represent the rotation.
  */
 export const quatFillRotationTo = (function () {
@@ -147,36 +163,36 @@ export const quatFillRotationTo = (function () {
         /**
          * Explanation of the math behind this function:
          * Shortest arc quaternion formula: q = normalize([cross(a, b), 1 + dot(a, b)])
-         * 
+         * theta is the angle between a and b, and axis is the normalized cross product of a and b.
+         *
          * a and b are normalized, so:
          *  dot(a, b) = cos(theta)
          *  length(cross(a, b)) = sin(theta)
-         * 
+         *
          * length of the quaternion can be computed as:
-         *  mag = sqrt(length(cross(a, b))^2 + (1 + dot(a, b))^2) 
+         *  mag = sqrt(length(cross(a, b))^2 + (1 + dot(a, b))^2)
          *  mag = sqrt(sin(theta)^2 + (1 + cos(theta))^2)
          * Since sin(theta)^2 + cos(theta)^2 = 1
-         *  mag = sqrt(2 + 2cos(theta)) 
+         *  mag = sqrt(2 + 2cos(theta))
          *  mag = sqrt(2 * (1 + cos(theta)))
-         * Since 2 and (1 + cos(theta)) are always positive, we can take the square root of each factor separately:
+         * Since (1 + cos(theta)) is always positive, we can take the square root of each factor separately:
          *  mag = sqrt(4) * sqrt((1 + cos(theta)) / 2)
-         * 
+         *
          * Using the half-angle identities:
          *  mag = 2 * cosHalfTheta
          *  1 + cos(theta) = 2 * cosHalfTheta^2
          *  sinHalfTheta * cosHalfTheta = sqrt((1 - cos(theta)) / 2) * sqrt((1 + cos(theta)) / 2)
          * Since 1 + cos(theta) and 1 - cos(theta) are always positive, we can merge the square root of each factor:
          *  sinHalfTheta * cosHalfTheta = sqrt((1 - cos(theta)^2) / 4) = sqrt(sin(theta)^2 / 4) = sin(theta) / 2
-         * So, sin(theta) = 2 * sinHalfTheta * cosHalfTheta
-         * 
+         * So,
+         *  sin(theta) = 2 * sinHalfTheta * cosHalfTheta
+         *
          * Therefore, the normalized quaternion is:
          *  q = [cross(a, b) / mag, (1 + dot(a, b)) / mag]
          *  q = [axis * sin(theta) / mag, (1 + cos(theta)) / mag]
          *  q = [sinHalfTheta * axis, cosHalfTheta]
-         * 
+         *
          * https://gabormakesgames.com/blog_quats_create.html
          */
-        
-        
     };
 })();

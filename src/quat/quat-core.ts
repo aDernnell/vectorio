@@ -1,4 +1,5 @@
 import { EPSILON } from "../utils";
+import { vec4StrictEquals } from "../vec4";
 import { quatDot } from "./quat-binary-ops";
 
 export type Quat = { x: number; y: number; z: number; w: number };
@@ -57,15 +58,15 @@ export function quatClone(a: Readonly<Quat>): Quat {
  * Checks if two quaternions are strictly equal
  * by comparing each corresponding component for strict equality (`===` operator).
  * 
- * @Remarks
- * Same as vec4StrictEquals(a as Vec4, b as Vec4) or vec4StrictEquals(vec4(a.x, a.y, a.z, a.w), vec4(b.x, b.y, b.z, b.w)).
+ * @remarks
+ * Same as vec4StrictEquals(a, b).
  *
  * @param a The first quaternion.
  * @param b The second quaternion.
  * @returns True if the quaternions are equal, false otherwise.
  */
 export function quatStrictEquals(a: Readonly<Quat>, b: Readonly<Quat>): boolean {
-    return a.x === b.x && a.y === b.y && a.z === b.z && a.w === b.w;
+    return vec4StrictEquals(a, b);
 }
 
 /**
@@ -73,8 +74,8 @@ export function quatStrictEquals(a: Readonly<Quat>, b: Readonly<Quat>): boolean 
  * by checking if they point to the same direction by a given tolerance (epsilon).
  * Both quaternions are assumed to be unit length.
  *
- * @param a The first unit quaternion.
- * @param b The second unit quaternion.
+ * @param a The first quaternion (must be normalized).
+ * @param b The second quaternion (must be normalized).
  * @param epsilon The tolerance for equality. Default is 1e-6.
  * @returns True if the quaternions are equal, false otherwise.
  */
