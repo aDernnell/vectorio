@@ -4,6 +4,7 @@ import { quatSet, type Quat } from './quat-core';
 
 /**
  * Multiplies two quaternions.
+ * The resulting quaternion represents the rotation of b followed by the rotation of a.
  * @param out The quaternion to store the result in.
  * @param a The first quaternion to multiply.
  * @param b The second quaternion to multiply.
@@ -22,10 +23,10 @@ export function quatMultiply(out: Quat, a: Readonly<Quat>, b: Readonly<Quat>): Q
 
 /**
  * Adds two quaternions.
- * 
+ *
  * @remarks
  * Same as vec4Add(a, b).
- * 
+ *
  * @param out The quaternion to store the result in.
  * @param a The first quaternion to add.
  * @param b The second quaternion to add.
@@ -38,10 +39,10 @@ export function quatAdd(out: Quat, a: Readonly<Quat>, b: Readonly<Quat>): Quat {
 /**
  * Calculates the dot product of two quaternions.
  * Gives the cosine of the angle between them if they are unit (normalized) quaternions.
- * 
+ *
  * @remarks
- * Double cover issue: if the cosine of the angle is negative (dot(q1, q2) < 0), 
- * the quaternions are in opposite hemispheres, and the angle q1 → −q2​ is shorter than q1 → q2​, 
+ * Double cover issue: if the cosine of the angle is negative (dot(q1, q2) < 0),
+ * the quaternions are in opposite hemispheres, and the angle q1 → −q2​ is shorter than q1 → q2​,
  * while -q2 represents the same rotation as q2.
  * Exemple: q and -q represent the same rotation, but are in opposite hemispheres,
  * dot(q, -q) = -1 and acos(-1) = π, but the angle between them is 0.
@@ -65,38 +66,18 @@ export function quatDot(a: Readonly<Quat>, b: Readonly<Quat>): number {
 
 /**
  * Gets the angular distance between two unit (normalized) quaternions
- * Does not account for the double cover issue, so for q and -q, this function returns π, not 0.
+ * Accounts for the double cover issue, so for q and -q, this function returns 0, not π.
  *
  * @param a Origin quaternion (must be normalized)
  * @param b Destination quaternion (must be normalized)
  * @returns The angle, in radians, between the two quaternions
  */
 export function quatAngle(a: Readonly<Quat>, b: Readonly<Quat>): number {
-    return angleFromDot(quatDot(a, b));
-}
+    const dot = quatDot(a, b);
 
-/**
- * Gets the shortest angular distance between two unit (normalized) quaternions
- * Accounts for the double cover issue, so for q and -q, this function returns 0, not π.
- * 
- * @param a Origin quaternion (must be normalized)
- * @param b Destination quaternion (must be normalized)
- * @returns The shortest angle, in radians, between the two quaternions
- */
-export function quatShortestAngle(a: Readonly<Quat>, b: Readonly<Quat>): number {
-    let dot = quatDot(a, b);
-
-    // If the dot product is negative, negate it to take the shorter path (avoid double cover issue)
-    if (dot < 0) {
-        dot = -dot;
-    }
-    return angleFromDot(dot);
-}
-
-function angleFromDot(dot: number): number {
     // For unit quaternions, the dot product is equal to the cosine of the half-angle between them:
     // dot = cos(omega) = cos(theta / 2) where theta is the angle in 3D space
-    // half-angle identity: cos(theta/2)² = (1 + cos(theta)) / 2 
+    // half-angle identity: cos(theta/2)² = (1 + cos(theta)) / 2
     // => 2 * dot * dot - 1 = cos(theta)
 
     // acos returns NaN if its parameter is even slightly outside [-1,1], so we clamp the value to avoid that.
@@ -105,10 +86,10 @@ function angleFromDot(dot: number): number {
 
 /**
  * Performs a linear interpolation between two quaternions.
- * 
+ *
  * @remarks
  * Same as vec4Lerp(a, b, t).
- * 
+ *
  * @param out The quaternion to store the result in.
  * @param a The first quaternion.
  * @param b The second quaternion.
@@ -130,7 +111,10 @@ export function quatLerp(out: Quat, a: Readonly<Quat>, b: Readonly<Quat>, t: num
  */
 export function quatSlerp(out: Quat, a: Readonly<Quat>, b: Readonly<Quat>, t: number): Quat {
     let cosOmega = quatDot(a, b); // omega = theta / 2 where theta is the angle in 3D space
-    let bx = b.x, by = b.y, bz = b.z, bw = b.w;
+    let bx = b.x,
+        by = b.y,
+        bz = b.z,
+        bw = b.w;
 
     // If the dot product is negative, negate one quaternion to take the shorter path (avoid double cover issue)
     if (cosOmega < 0) {
@@ -168,4 +152,3 @@ export function quatSlerp(out: Quat, a: Readonly<Quat>, b: Readonly<Quat>, t: nu
         a.w * ratioA + bw * ratioB,
     );
 }
-

@@ -184,7 +184,7 @@ export function mat4LookAt(out: Mat4, eye: Readonly<Vec3>, center: Readonly<Vec3
 
 /**
  * Generates a target-to matrix with the given source point, target point, and up axis.
- * The generated matrix can be used to orient something toward something else 
+ * The generated matrix can be used to orient an object so that its local forward axis points toward target
  * in a left-handed world-space with +Z forward.
  *
  * @param out Matrix4x4 targetTo matrix will be written into

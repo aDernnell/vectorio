@@ -1,9 +1,9 @@
 import { vec4Scale } from '../vec4';
-import { Quat, quatSet } from './quat-core';
+import { Quat, quatReset, quatSet } from './quat-core';
 
 /**
  * Calculates the inverse of a quat (out = a^-1)
- * The result is a quaternion that represents the opposite rotation (a * a^-1 = identity).
+ * The result is a unit quaternion that represents the opposite rotation (a * a^-1 = identity).
  *
  * @param out the receiving quaternion
  * @param a quat to calculate inverse of
@@ -47,7 +47,7 @@ export function quatConjugate(out: Quat, a: Readonly<Quat>): Quat {
 /**
  * Normalizes a quat (to have a magnitude of 1).
  * The result is a unit quaternion.
- * If the quaternion has zero length, it won't be modified.
+ * If the quaternion has zero length, the result will be the identity quaternion (0, 0, 0, 1).
  *
  * @param out the receiving quaternion
  * @param a quat to normalize
@@ -57,7 +57,7 @@ export function quatNormalize(out: Quat, a: Readonly<Quat>): Quat {
     let len = a.x * a.x + a.y * a.y + a.z * a.z + a.w * a.w;
 
     if (len === 0) {
-        return out; // Return the original quaternion if it has zero length
+        return quatReset(out);
     }
     len = 1 / Math.sqrt(len);
     return quatSet(out, a.x * len, a.y * len, a.z * len, a.w * len);
@@ -65,11 +65,10 @@ export function quatNormalize(out: Quat, a: Readonly<Quat>): Quat {
 
 /**
  * Calculate the exponential of a unit quaternion.
+ * Result is not normalized
  *
  * @param out the receiving quaternion
  * @param a quat to calculate the exponential of
- * 
- * 
  * @returns out quat updated to be the exponential of a
  */
 export function quatExp(out: Quat, a: Readonly<Quat>): Quat {
@@ -82,6 +81,9 @@ export function quatExp(out: Quat, a: Readonly<Quat>): Quat {
 
 /**
  * Calculate the natural logarithm of a unit quaternion.
+ * 
+ * @remarks
+ * Result is undefined for negative pure real quaternions (w < 0).
  *
  * @param out the receiving quaternion
  * @param a quat to calculate the natural logarithm of (must be normalized)
@@ -111,10 +113,10 @@ export function quatPow(out: Quat, a: Readonly<Quat>, b: number): Quat {
 
 /**
  * Scales a quaternion by a scalar.
- * 
+ *
  * @remarks
  * Same as vec4Scale(a, b)
- * 
+ *
  * @param out the receiving quaternion
  * @param a quat to scale
  * @param b the scalar to scale by

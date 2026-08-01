@@ -22,76 +22,111 @@ export function quatFillRotation(out: Quat, axis: Readonly<Vec3>, rad: number): 
 }
 
 /**
- * Rotates a quaternion by the given angle about the X axis
+ * Rotates a quaternion by the given angle about the X axis.
+ * 
+ * If q already represents a rotation, the resulting quaternion will represent 
+ * the rotation around the X axis followed by the rotation represented by q.
+ * 
+ * out = q * qx
  *
  * @param out The output quaternion to apply the rotation to.
- * @param a quat to rotate
+ * @param q quat to rotate
  * @param rad angle (in radians) to rotate
  * @returns The output quaternion with the rotation applied.
  */
-export function quatRotateX(out: Quat, a: Readonly<Quat>, rad: number): Quat {
+export function quatRotateX(out: Quat, q: Readonly<Quat>, rad: number): Quat {
     const halfAngle = rad * 0.5;
     const sinHalfTheta = Math.sin(halfAngle);
     const cosHalfTheta = Math.cos(halfAngle);
 
     return quatSet(
         out,
-        a.x * cosHalfTheta + a.w * sinHalfTheta,
-        a.y * cosHalfTheta + a.z * sinHalfTheta,
-        a.z * cosHalfTheta - a.y * sinHalfTheta,
-        a.w * cosHalfTheta - a.x * sinHalfTheta,
+        q.x * cosHalfTheta + q.w * sinHalfTheta,
+        q.y * cosHalfTheta + q.z * sinHalfTheta,
+        q.z * cosHalfTheta - q.y * sinHalfTheta,
+        q.w * cosHalfTheta - q.x * sinHalfTheta,
     );
 }
 
 /**
- * Rotates a quaternion by the given angle about the Y axis
+ * Rotates a quaternion by the given angle about the Y axis.
+ * 
+ * If q already represents a rotation, the resulting quaternion will represent 
+ * the rotation around the Y axis followed by the rotation represented by q.
+ * 
+ * out = q * qy
  *
  * @param out The output quaternion to apply the rotation to.
- * @param a quat to rotate
+ * @param q quat to rotate
  * @param rad angle (in radians) to rotate
  * @returns The output quaternion with the rotation applied.
  */
-export function quatRotateY(out: Quat, a: Readonly<Quat>, rad: number): Quat {
+export function quatRotateY(out: Quat, q: Readonly<Quat>, rad: number): Quat {
     const halfAngle = rad * 0.5;
     const sinHalfTheta = Math.sin(halfAngle);
     const cosHalfTheta = Math.cos(halfAngle);
 
     return quatSet(
         out,
-        a.x * cosHalfTheta - a.z * sinHalfTheta,
-        a.y * cosHalfTheta + a.w * sinHalfTheta,
-        a.z * cosHalfTheta + a.x * sinHalfTheta,
-        a.w * cosHalfTheta - a.y * sinHalfTheta,
+        q.x * cosHalfTheta - q.z * sinHalfTheta,
+        q.y * cosHalfTheta + q.w * sinHalfTheta,
+        q.z * cosHalfTheta + q.x * sinHalfTheta,
+        q.w * cosHalfTheta - q.y * sinHalfTheta,
     );
 }
 
 /**
- * Rotates a quaternion by the given angle about the Z axis
+ * Rotates a quaternion by the given angle about the Z axis.
+ * 
+ * If q already represents a rotation, the resulting quaternion will represent 
+ * the rotation around the Z axis followed by the rotation represented by q.
+ * 
+ * out = q * qz
  *
  * @param out The output quaternion to apply the rotation to.
- * @param a quat to rotate
+ * @param q quat to rotate
  * @param rad angle (in radians) to rotate
  * @returns The output quaternion with the rotation applied.
  */
-export function quatRotateZ(out: Quat, a: Readonly<Quat>, rad: number): Quat {
+export function quatRotateZ(out: Quat, q: Readonly<Quat>, rad: number): Quat {
     const halfAngle = rad * 0.5;
     const sinHalfTheta = Math.sin(halfAngle);
     const cosHalfTheta = Math.cos(halfAngle);
 
     return quatSet(
         out,
-        a.x * cosHalfTheta + a.y * sinHalfTheta,
-        a.y * cosHalfTheta - a.x * sinHalfTheta,
-        a.z * cosHalfTheta + a.w * sinHalfTheta,
-        a.w * cosHalfTheta - a.z * sinHalfTheta,
+        q.x * cosHalfTheta + q.y * sinHalfTheta,
+        q.y * cosHalfTheta - q.x * sinHalfTheta,
+        q.z * cosHalfTheta + q.w * sinHalfTheta,
+        q.w * cosHalfTheta - q.z * sinHalfTheta,
     );
 }
 
 /**
  * Creates a quaternion from Euler angles (in radians).
- * The extrinsic order of rotations is ZYX:
- * v' = qz * qy * qx * v
- * Yaw is applied first (world X axis), then pitch (world Y axis), then roll (world Z axis).
+ * 
+ * Rotations are applied in ZYX extrinsic order:
+ * ```
+ * 1. rotates around world Z axis
+ * 2. rotates around world Y axis
+ * 3. rotates around world X axis
+ * ```
+ * This is equivalent to applying the rotations in XYZ intrinsic order:
+ * ```
+ * 1. rotates around local X axis
+ * 2. rotates around previously rotated local Y axis
+ * 3. rotates around previously rotated local Z axis
+ * ```
+ * In a left-handed coordinate system, it means: 
+ * ```
+ * 1. pitch (Nose up/down)
+ * 2. yaw (Turn left/right)
+ * 3. roll (Tilts left/right: wings up/down)
+ * ```
+ * Result corresponds to the following quaternion multiplication:
+ * `out = qx * qy * qz`
+ * where qx, qy, qz are the quaternions representing the rotations around the X, Y and Z world axes respectively.
+ * 
  * @param out The output quaternion.
  * @param x The rotation angle around the X axis in radians.
  * @param y The rotation angle around the Y axis in radians.
@@ -132,15 +167,15 @@ export const quatFillRotationTo = (function () {
     // We define a global temporary axis vector, scoped to the function, to avoid allocating a new one on each call.
     const tmpAxis = vec3(0, 0, 0);
 
-    return function (out: Quat, a: Readonly<Vec3>, b: Readonly<Vec3>): Quat {
-        const dot = vec3Dot(a, b);
+    return function (out: Quat, q1: Readonly<Vec3>, q2: Readonly<Vec3>): Quat {
+        const dot = vec3Dot(q1, q2);
 
         if (dot < -1 + EPSILON) {
             // If the vectors are nearly opposite, we need to find an orthogonal vector to use as the rotation axis.
-            if (Math.abs(a.x) > Math.abs(a.z)) {
-                vec3Set(tmpAxis, -a.y, a.x, 0);
+            if (Math.abs(q1.x) > Math.abs(q1.z)) {
+                vec3Set(tmpAxis, -q1.y, q1.x, 0);
             } else {
-                vec3Set(tmpAxis, 0, -a.z, a.y);
+                vec3Set(tmpAxis, 0, -q1.z, q1.y);
             }
             // normalize axis
             const len = Math.sqrt(tmpAxis.x * tmpAxis.x + tmpAxis.y * tmpAxis.y + tmpAxis.z * tmpAxis.z);
@@ -156,21 +191,21 @@ export const quatFillRotationTo = (function () {
             return quatReset(out);
         }
 
-        vec3Cross(tmpAxis, a, b);
+        vec3Cross(tmpAxis, q1, q2);
         quatSet(out, tmpAxis.x, tmpAxis.y, tmpAxis.z, 1 + dot);
         return quatNormalize(out, out);
 
         /**
          * Explanation of the math behind this function:
-         * Shortest arc quaternion formula: q = normalize([cross(a, b), 1 + dot(a, b)])
-         * theta is the angle between a and b, and axis is the normalized cross product of a and b.
+         * Shortest arc quaternion formula: q = normalize([cross(q1, q2), 1 + dot(q1, q2)])
+         * theta is the angle between q1 and q2, and axis is the normalized cross product of q1 and q2.
          *
-         * a and b are normalized, so:
-         *  dot(a, b) = cos(theta)
-         *  length(cross(a, b)) = sin(theta)
+         * q1 and q2 are normalized, so:
+         *  dot(q1, q2) = cos(theta)
+         *  length(cross(q1, q2)) = sin(theta)
          *
          * length of the quaternion can be computed as:
-         *  mag = sqrt(length(cross(a, b))^2 + (1 + dot(a, b))^2)
+         *  mag = sqrt(length(cross(q1, q2))^2 + (1 + dot(q1, q2))^2)
          *  mag = sqrt(sin(theta)^2 + (1 + cos(theta))^2)
          * Since sin(theta)^2 + cos(theta)^2 = 1
          *  mag = sqrt(2 + 2cos(theta))
@@ -188,7 +223,7 @@ export const quatFillRotationTo = (function () {
          *  sin(theta) = 2 * sinHalfTheta * cosHalfTheta
          *
          * Therefore, the normalized quaternion is:
-         *  q = [cross(a, b) / mag, (1 + dot(a, b)) / mag]
+         *  q = [cross(q1, q2) / mag, (1 + dot(q1, q2)) / mag]
          *  q = [axis * sin(theta) / mag, (1 + cos(theta)) / mag]
          *  q = [sinHalfTheta * axis, cosHalfTheta]
          *

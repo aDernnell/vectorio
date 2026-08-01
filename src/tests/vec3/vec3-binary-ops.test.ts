@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { vec3, vec3Equals } from '../../vec3/vec3-core';
+import { vec3, VEC3_X, VEC3_Y, VEC3_Z, vec3Equals } from '../../vec3/vec3-core';
 import {
     vec3Add,
     vec3Angle,
@@ -33,13 +33,24 @@ describe('vec3-binary-ops', function () {
         expect(vec3SquaredDistance(vec3(0, 0, 0), vec3(1, 2, 2))).toBe(9);
         expect(vec3Dot(vec3(1, 2, 3), vec3(4, 5, 6))).toBe(32);
 
-        vec3Cross(out, vec3(1, 0, 0), vec3(0, 1, 0));
-        expect(vec3Equals(out, vec3(0, 0, 1))).toBe(true);
-
         vec3Lerp(out, vec3(0, 0, 0), vec3(10, 20, 30), 0.25);
         expect(vec3Equals(out, vec3(2.5, 5, 7.5))).toBe(true);
 
         expect(vec3Angle(vec3(1, 0, 0), vec3(0, 1, 0))).toBeCloseTo(Math.PI / 2, 6);
         expect(vec3Angle(vec3(0, 0, 0), vec3(1, 0, 0))).toBe(0);
+    });
+
+    it('calculates the cross product of two Vec3', function () {
+        const out = vec3();
+
+        // Standard cross product: x × y = z
+        vec3Cross(out, VEC3_X, VEC3_Y);
+        expect(vec3Equals(out, VEC3_Z)).toBe(true);
+
+        vec3Cross(out, VEC3_Y, VEC3_Z);
+        expect(vec3Equals(out, VEC3_X)).toBe(true);
+
+        vec3Cross(out, VEC3_Z, VEC3_X);
+        expect(vec3Equals(out, VEC3_Y)).toBe(true);
     });
 });

@@ -16,6 +16,9 @@ export function vec2MatTransform(out: Vec2, a: Readonly<Vec2>, m: Readonly<Mat2>
 
 /**
  * Rotates a Vec2 around a specified origin by a given angle in radians.
+ * 
+ * TODO rotation direction / coordinate system ?
+ * 
  * @param out The vector to store the result in.
  * @param a The vector to rotate.
  * @param origin The point to rotate around.

@@ -4,7 +4,9 @@ import { Vec3, vec3Set } from './vec3-core';
 
 /**
  * Transforms a Vec3 by a 3x3 matrix.
+ * 
  * Uses column vector post-multiplication: v' = M * v
+ * 
  * @param out The vector to store the result in.
  * @param a The vector to transform.
  * @param m The 3x3 matrix to transform the vector by.
@@ -21,6 +23,10 @@ export function vec3MatTransform(out: Vec3, a: Readonly<Vec3>, m: Readonly<Mat3>
 
 /**
  * Rotates a Vec3 by a unit quaternion.
+ * 
+ * The quaternion rotation is interpreted as a left-handed rotation:
+ * the rotation is clockwise when looking from the tip of the rotation axis towards the origin.
+ * 
  * @param out The vector to store the result in.
  * @param a The vector to transform.
  * @param q The quaternion to transform by (must be normalized).
@@ -48,6 +54,10 @@ export function vec3QuatTransform(out: Vec3, a: Readonly<Vec3>, q: Readonly<Quat
 
 /**
  * Rotates a Vec3 around the X axis and a specified origin.
+ * 
+ * Rotation is applied with left-handed convention: 
+ * the rotation is clockwise when looking from the tip of the rotation axis towards the origin.
+ * 
  * @param out The vector to store the result in.
  * @param a The vector to rotate.
  * @param origin The point to rotate around.
@@ -64,6 +74,10 @@ export function vec3RotateX(out: Vec3, a: Readonly<Vec3>, origin: Readonly<Vec3>
 
 /**
  * Rotates a Vec3 around the Y axis and a specified origin.
+ * 
+ * Rotation is applied with left-handed convention: 
+ * the rotation is clockwise when looking from the tip of the rotation axis towards the origin.
+ * 
  * @param out The vector to store the result in.
  * @param a The vector to rotate.
  * @param origin The point to rotate around.
@@ -80,6 +94,10 @@ export function vec3RotateY(out: Vec3, a: Readonly<Vec3>, origin: Readonly<Vec3>
 
 /**
  * Rotates a Vec3 around the Z axis and a specified origin.
+ * 
+ * Rotation is applied with left-handed convention: 
+ * the rotation is clockwise when looking from the tip of the rotation axis towards the origin.
+ * 
  * @param out The vector to store the result in.
  * @param a The vector to rotate.
  * @param origin The point to rotate around.

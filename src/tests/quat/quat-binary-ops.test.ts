@@ -5,12 +5,11 @@ import {
     quatDot,
     quatLerp,
     quatMultiply,
-    quatShortestAngle,
-    quatSlerp,
+    quatSlerp
 } from '../../quat/quat-binary-ops';
 import { quat, QUAT_IDENTITY, quatEquals, quatSet } from '../../quat/quat-core';
-import { vec3, VEC3_RIGHT, VEC3_UP, vec3Normalize, vec3Scale } from '../../vec3';
 import { quatFillRotation } from '../../quat/quat-rot';
+import { vec3, VEC3_RIGHT, VEC3_UP, vec3Normalize } from '../../vec3';
 
 describe('quat-binary-ops', () => {
     const out = quat();
@@ -86,7 +85,7 @@ describe('quat-binary-ops', () => {
         });
 
         // same test as above, but more verbose and with more details about the math behind it
-        it('combines rotations', () => {
+        it('combines rotations in right-to-left order', () => {
             const angleA = Math.PI / 2;
             const angleB = Math.PI / 2;
             const axisA = VEC3_RIGHT; // Rotate around the X axis
@@ -139,13 +138,11 @@ describe('quat-binary-ops', () => {
         expect(quatAngle(a, b)).toBeCloseTo(Math.PI / 2, 6);
     });
 
-    it('handles double-cover quaternions consistently in angle helpers', function () {
+    it('handles double-cover quaternions consistently in angle helper', function () {
         const q = quat(0.5, 0.5, 0.5, 0.5);
         const minusQ = quat(-0.5, -0.5, -0.5, -0.5);
 
-        // TODO quatShortestAngle is not necessary
         expect(quatAngle(q, minusQ)).toBeCloseTo(0, 6);
-        expect(quatShortestAngle(q, minusQ)).toBeCloseTo(0, 6);
     });
 
     it('linearly interpolates quaternions', function () {

@@ -12,4 +12,6 @@ describe('vec4-affine', function () {
         vec4Scale(out, vec4(1, -2, 3, -4), 2);
         expect(vec4Equals(out, vec4(2, -4, 6, -8))).toBe(true);
     });
+
+    // TODO
 });

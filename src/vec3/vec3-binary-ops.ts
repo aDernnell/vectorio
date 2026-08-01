@@ -81,13 +81,16 @@ export function vec3Dot(a: Readonly<Vec3>, b: Readonly<Vec3>): number {
 }
 
 /**
- * Calculates the cross product of two Vec3.
- * The direction of the resulting vector follows the right-hand rule in a right-handed coordinate system,
- * and the left-hand rule in a left-handed coordinate system: 
- * take your right hand if world space is right-handed (+Z backward), or your left hand if world space is left-handed (+Z forward),
- * point your forefinger in the direction of the first vector (a),
+ * Calculates the standard cross product of two Vec3.
+ * 
+ * Resulting vector orientation is such that x × y = z
+ * 
+ * @remarks
+ * For a left-handed coordinate system:
+ * take your left hand, point your forefinger in the direction of the first vector (a),
  * your middle finger in the direction of the second vector (b), 
  * and your thumb will point in the direction of the resulting vector (out).
+ * 
  * @param out The vector to store the result in.
  * @param a The first vector.
  * @param b The second vector.

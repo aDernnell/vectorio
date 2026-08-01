@@ -19,6 +19,10 @@ export const VEC3_FORWARD: Readonly<Vec3> = { x: 0, y: 0, z: 1 };
 /** (0, 0, -1) */
 export const VEC3_BACK: Readonly<Vec3> = { x: 0, y: 0, z: -1 };
 
+export const VEC3_X: Readonly<Vec3> = VEC3_RIGHT;
+export const VEC3_Y: Readonly<Vec3> = VEC3_UP;
+export const VEC3_Z: Readonly<Vec3> = VEC3_FORWARD;
+
 export type Vec3 = {
     x: number;
     y: number;
