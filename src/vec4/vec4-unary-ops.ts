@@ -12,6 +12,37 @@ export function vec4Apply(out: Vec4, a: Readonly<Vec4>, fn: (value: number) => n
 }
 
 /**
+ * Scales a Vec4 by a scalar value.
+ * @param out The vector to store the result in.
+ * @param a The vector to scale.
+ * @param scalar The scalar value to scale the vector by.
+ * @returns The out vector with the result.
+ */
+export function vec4Scale(out: Vec4, a: Readonly<Vec4>, scalar: number): Vec4 {
+    return vec4Set(out, a.x * scalar, a.y * scalar, a.z * scalar, a.w * scalar);
+}
+
+/**
+ * Negates a Vec4 (multiplies each component by -1).
+ * @param out The vector to store the result in.
+ * @param a The vector to negate.
+ * @returns The out vector with the result.
+ */
+export function vec4Negate(out: Vec4, a: Readonly<Vec4>): Vec4 {
+    return vec4Set(out, -a.x, -a.y, -a.z, -a.w);
+}
+
+/**
+ * Inverts a Vec4 (takes the inverse of each component).
+ * @param out The vector to store the result in.
+ * @param a The vector to invert.
+ * @returns The out vector with the result.
+ */
+export function vec4Invert(out: Vec4, a: Readonly<Vec4>): Vec4 {
+    return vec4Set(out, 1 / a.x, 1 / a.y, 1 / a.z, 1 / a.w);
+}
+
+/**
  * Normalizes a Vec4 (to have a magnitude of 1).
  * @param out The vector to store the result in.
  * @param a The vector to normalize.

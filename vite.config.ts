@@ -15,14 +15,14 @@ export default defineConfig(({ command }) => ({
   },
   test: {
     root: ".",
-    include: ["src/tests/**/*.test.ts"],
+    include: ["tests/**/*.test.ts"],
+    setupFiles: ["tests/expect-extensions.ts"],
     coverage: {
       reporter: [["lcov"], ["json", { file: "coverage.json" }], ["text"]],
       reportsDirectory: "./coverage",
       provider: "v8",
       include: ["src/**"],
       exclude: [
-        "**/tests/**",
         "**/index.ts",
         "**/namespace.ts",
       ],

@@ -12,6 +12,37 @@ export function vec3Apply(out: Vec3, a: Readonly<Vec3>, fn: (value: number) => n
 }
 
 /**
+ * Scales a Vec3 by a scalar value.
+ * @param out The vector to store the result in.
+ * @param a The vector to scale.
+ * @param scalar The scalar value to scale the vector by.
+ * @returns The out vector with the result.
+ */
+export function vec3Scale(out: Vec3, a: Readonly<Vec3>, scalar: number): Vec3 {
+    return vec3Set(out, a.x * scalar, a.y * scalar, a.z * scalar);
+}
+
+/**
+ * Negates a Vec3 (multiplies each component by -1).
+ * @param out The vector to store the result in.
+ * @param a The vector to negate.
+ * @returns The out vector with the result.
+ */
+export function vec3Negate(out: Vec3, a: Readonly<Vec3>): Vec3 {
+    return vec3Set(out, -a.x, -a.y, -a.z);
+}
+
+/**
+ * Inverts a Vec3 (takes the inverse of each component).
+ * @param out The vector to store the result in.
+ * @param a The vector to invert.
+ * @returns The out vector with the result.
+ */
+export function vec3Invert(out: Vec3, a: Readonly<Vec3>): Vec3 {
+    return vec3Set(out, 1 / a.x, 1 / a.y, 1 / a.z);
+}
+
+/**
  * Normalizes a Vec3 (to have a magnitude of 1).
  * @param out The vector to store the result in.
  * @param a The vector to normalize.

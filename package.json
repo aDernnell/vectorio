@@ -56,7 +56,7 @@
         "dist"
     ],
     "scripts": {
-        "build": "tsc -b ./tsconfig.json --force && vite build",
+        "build": "tsc -b ./tsconfig.build.json --force && vite build",
         "test": "vitest",
         "coverage": "vitest run --coverage"
     },

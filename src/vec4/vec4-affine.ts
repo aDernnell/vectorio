@@ -18,14 +18,3 @@ export function vec4MatTransform(out: Vec4, a: Readonly<Vec4>, m: Readonly<Mat4>
         m.m30 * a.x + m.m31 * a.y + m.m32 * a.z + m.m33 * a.w,
     );
 }
-
-/**
- * Scales a Vec4 by a scalar value.
- * @param out The vector to store the result in.
- * @param a The vector to scale.
- * @param scalar The scalar value to scale the vector by.
- * @returns The out vector with the result.
- */
-export function vec4Scale(out: Vec4, a: Readonly<Vec4>, scalar: number): Vec4 {
-    return vec4Set(out, a.x * scalar, a.y * scalar, a.z * scalar, a.w * scalar);
-}

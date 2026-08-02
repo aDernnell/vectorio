@@ -1,4 +1,4 @@
-import { vec4MatTransform, vec4Scale } from './vec4-affine';
+import { vec4MatTransform } from './vec4-affine';
 import { vec4Add, vec4Angle, vec4Distance, vec4Divide, vec4Dot, vec4Lerp, vec4Multiply, vec4SquaredDistance, vec4Subtract } from './vec4-binary-ops';
 import {
     vec4,
@@ -13,7 +13,7 @@ import {
     VEC4_ONE,
 } from './vec4-core';
 import { vec4Magnitude, vec4SquaredMagnitude } from './vec4-props';
-import { vec4Apply, vec4Normalize } from './vec4-unary-ops';
+import { vec4Apply, vec4Negate, vec4Invert, vec4Normalize, vec4Scale } from './vec4-unary-ops';
 
 export {
     // core
@@ -34,11 +34,13 @@ export {
     vec4SquaredMagnitude as squaredMagnitude,
 
     // affine transformations
-    vec4Scale as scale,
     vec4MatTransform as matTransform,
 
     // unary operations
     vec4Apply as apply,
+    vec4Scale as scale,
+    vec4Negate as negate,
+    vec4Invert as invert,
     vec4Normalize as normalize,
 
     // binary operations

@@ -1,4 +1,4 @@
-import { vec2MatTransform, vec2Rotate, vec2Scale } from './vec2-affine';
+import { vec2MatTransform, vec2Rotate } from './vec2-affine';
 import { vec2Add, vec2Angle, vec2Cross, vec2Distance, vec2Divide, vec2Dot, vec2Lerp, vec2Multiply, vec2SignedAngle, vec2SquaredDistance, vec2Subtract } from './vec2-binary-ops';
 import { vec2, vec2Set, vec2Equals, vec2StrictEquals, vec2Clone, vec2FillWith, vec2Stringify,
     VEC2_ZERO,
@@ -9,7 +9,7 @@ import { vec2, vec2Set, vec2Equals, vec2StrictEquals, vec2Clone, vec2FillWith, v
     VEC2_DOWN,
 } from './vec2-core';
 import { vec2Magnitude, vec2SquaredMagnitude } from './vec2-props';
-import { vec2Apply, vec2Normalize } from './vec2-unary-ops';
+import { vec2Apply, vec2Invert, vec2Negate, vec2Normalize, vec2Scale } from './vec2-unary-ops';
 
 export {
     // core
@@ -29,7 +29,6 @@ export {
     VEC2_DOWN as DOWN,
 
     // affine transformations
-    vec2Scale as scale,
     vec2Rotate as rotate,
     vec2MatTransform as matTransform,
 
@@ -39,6 +38,9 @@ export {
 
     // unary operations
     vec2Apply as apply,
+    vec2Scale as scale,
+    vec2Negate as negate,
+    vec2Invert as invert,
     vec2Normalize as normalize,
 
     // binary operations

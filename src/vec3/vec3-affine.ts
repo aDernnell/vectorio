@@ -111,14 +111,3 @@ export function vec3RotateZ(out: Vec3, a: Readonly<Vec3>, origin: Readonly<Vec3>
     const y = a.y - origin.y;
     return vec3Set(out, origin.x + x * cos - y * sin, origin.y + x * sin + y * cos, a.z);
 }
-
-/**
- * Scales a Vec3 by a scalar value.
- * @param out The vector to store the result in.
- * @param a The vector to scale.
- * @param scalar The scalar value to scale the vector by.
- * @returns The out vector with the result.
- */
-export function vec3Scale(out: Vec3, a: Readonly<Vec3>, scalar: number): Vec3 {
-    return vec3Set(out, a.x * scalar, a.y * scalar, a.z * scalar);
-}

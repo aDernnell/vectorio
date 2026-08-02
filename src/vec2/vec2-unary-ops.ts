@@ -12,6 +12,37 @@ export function vec2Apply(out: Vec2, a: Readonly<Vec2>, fn: (value: number) => n
 }
 
 /**
+ * Scales a Vec2 by a scalar value.
+ * @param out The vector to store the result in.
+ * @param a The vector to scale.
+ * @param scalar The scalar value to scale the vector by.
+ * @returns The out vector with the result.
+ */
+export function vec2Scale(out: Vec2, a: Readonly<Vec2>, scalar: number): Vec2 {
+    return vec2Set(out, a.x * scalar, a.y * scalar);
+}
+
+/**
+ * Negates a Vec2 (multiplies each component by -1).
+ * @param out The vector to store the result in.
+ * @param a The vector to negate.
+ * @returns The out vector with the result.
+ */
+export function vec2Negate(out: Vec2, a: Readonly<Vec2>): Vec2 {
+    return vec2Set(out, -a.x, -a.y);
+}
+
+/**
+ * Inverts a Vec2 (takes the inverse of each component).
+ * @param out The vector to store the result in.
+ * @param a The vector to invert.
+ * @returns The out vector with the result.
+ */
+export function vec2Invert(out: Vec2, a: Readonly<Vec2>): Vec2 {
+    return vec2Set(out, 1 / a.x, 1 / a.y);
+}
+
+/**
  * Normalizes a Vec2 (to have a magnitude of 1).
  * @param out The vector to store the result in.
  * @param a The vector to normalize.

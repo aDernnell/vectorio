@@ -17,9 +17,9 @@ import {
     VEC3_BACK,
     vec3FillTrunc,
 } from './vec3-core';
-import { vec3Scale, vec3MatTransform, vec3RotateX, vec3RotateZ, vec3RotateY } from './vec3-affine';
+import {  vec3MatTransform, vec3RotateX, vec3RotateZ, vec3RotateY } from './vec3-affine';
 import { vec3Magnitude, vec3SquaredMagnitude } from './vec3-props';
-import { vec3Apply, vec3Normalize } from './vec3-unary-ops';
+import { vec3Apply, vec3Negate, vec3Invert, vec3Normalize, vec3Scale } from './vec3-unary-ops';
 import {
     vec3Add,
     vec3Subtract,
@@ -55,7 +55,6 @@ export {
     VEC3_BACK as BACK,
 
     // affine transformations
-    vec3Scale as scale,
     vec3RotateX as rotateX,
     vec3RotateY as rotateY,
     vec3RotateZ as rotateZ,
@@ -67,6 +66,9 @@ export {
 
     // unary operations
     vec3Apply as apply,
+    vec3Scale as scale,
+    vec3Negate as negate,
+    vec3Invert as invert,
     vec3Normalize as normalize,
 
     // binary operations

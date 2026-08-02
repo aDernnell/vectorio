@@ -32,14 +32,3 @@ export function vec2Rotate(out: Vec2, a: Readonly<Vec2>, origin: Readonly<Vec2>,
     const dy = a.y - origin.y;
     return vec2Set(out, origin.x + dx * cos - dy * sin, origin.y + dx * sin + dy * cos);
 }
-
-/**
- * Scales a Vec2 by a scalar value.
- * @param out The vector to store the result in.
- * @param a The vector to scale.
- * @param scalar The scalar value to scale the vector by.
- * @returns The out vector with the result.
- */
-export function vec2Scale(out: Vec2, a: Readonly<Vec2>, scalar: number): Vec2 {
-    return vec2Set(out, a.x * scalar, a.y * scalar);
-}
