@@ -3,6 +3,7 @@ import { Quat, quatReset, quatSet } from './quat-core';
 
 /**
  * Calculates the inverse of a quat (out = a^-1)
+ * 
  * The result is a unit quaternion that represents the opposite rotation (a * a^-1 = identity).
  *
  * @param out the receiving quaternion
@@ -21,6 +22,7 @@ export function quatInvert(out: Quat, a: Readonly<Quat>): Quat {
 
 /**
  * Calculates the negation of a quat (out = -a)
+ * 
  * The result is a quaternion that represents the same rotation
  * but with a different representation (the opposite hemisphere).
  *
@@ -34,6 +36,7 @@ export function quatNegate(out: Quat, a: Readonly<Quat>): Quat {
 
 /**
  * Calculates the conjugate of a quat (out = a*)
+ * 
  * If the quaternion is normalized, this function is faster than quatInvert and produces the same result.
  *
  * @param out the receiving quaternion
@@ -46,7 +49,9 @@ export function quatConjugate(out: Quat, a: Readonly<Quat>): Quat {
 
 /**
  * Normalizes a quat (to have a magnitude of 1).
+ * 
  * The result is a unit quaternion.
+ * 
  * If the quaternion has zero length, the result will be the identity quaternion (0, 0, 0, 1).
  *
  * @param out the receiving quaternion
@@ -65,7 +70,8 @@ export function quatNormalize(out: Quat, a: Readonly<Quat>): Quat {
 
 /**
  * Calculate the exponential of a unit quaternion.
- * Result is not normalized
+ * 
+ * Result is not normalized.
  *
  * @param out the receiving quaternion
  * @param a quat to calculate the exponential of

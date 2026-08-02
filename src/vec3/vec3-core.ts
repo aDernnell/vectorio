@@ -112,7 +112,9 @@ export function vec3FillTrunc(out: Vec3, v: Readonly<Vec4>): Vec3 {
 /**
  * Checks if two Vec3 are strictly equal
  * by comparing each corresponding component for strict equality (`===` operator).
+ * 
  * This comparison does not account for floating-point precision errors.
+ * 
  * @param a The first Vec3 to compare.
  * @param b The second Vec3 to compare.
  * @returns True if the Vec3 are strictly equal, false otherwise.
@@ -124,7 +126,9 @@ export function vec3StrictEquals(a: Readonly<Vec3>, b: Readonly<Vec3>): boolean 
 /**
  * Checks if two Vec3 are approximately equal
  * by comparing each corresponding component with a specified tolerance (epsilon).
+ * 
  * This comparison accounts for floating-point precision errors.
+ * 
  * @param a The first Vec3 to compare.
  * @param b The second Vec3 to compare.
  * @param epsilon The tolerance for approximate equality, default is 1e-6.

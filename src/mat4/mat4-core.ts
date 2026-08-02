@@ -27,8 +27,10 @@ export const MAT4_IDENTITY: Readonly<Mat4> = {
 };
 
 /** 
- * Creates a new 4x4 matrix. 
+ * Creates a new 4x4 matrix.
+ * 
  * Data is provided in row-major order.
+ * 
  * If no parameters are provided, the identity matrix is created.
  * ```
  * | m00  m01  m02  m03 |
@@ -115,8 +117,10 @@ export function mat4Clone(m: Readonly<Mat4>): Mat4 {
 }
 
 /** 
- * Sets matrix values. 
+ * Sets matrix values.
+ * 
  * Data is provided in row-major order.
+ * 
  * @param m The matrix to set.
  * @param m00 The value for the first row, first column.
  * @param m01 The value for the first row, second column.
@@ -153,7 +157,9 @@ export function mat4Set(
 
 /** 
  * Fills the matrix values by padding a 3x3 matrix.
+ * 
  * Uses identity values for the padding.
+ * 
  * @param m The matrix to fill.
  * @param mat The 3x3 matrix to pad.
  * @returns The matrix m with updated values.
@@ -211,6 +217,7 @@ export function mat4FillArr(m: Mat4, arr: ArrayLike<number>): Mat4 {
 /**
  * Checks if two 4x4 matrices are strictly equal
  * by comparing each corresponding element for strict equality (`===` operator).
+ * 
  * This comparison does not account for floating-point precision errors.
  * @param a The first matrix to compare.
  * @param b The second matrix to compare.
@@ -240,6 +247,7 @@ export function mat4StrictEquals(a: Readonly<Mat4>, b: Readonly<Mat4>): boolean 
 /**
  * Checks if two 4x4 matrices are approximately equal
  * by comparing each corresponding element with a specified tolerance (epsilon).
+ * 
  * This comparison accounts for floating-point precision errors.
  * @param a The first matrix to compare.
  * @param b The second matrix to compare.

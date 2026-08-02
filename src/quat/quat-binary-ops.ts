@@ -4,7 +4,9 @@ import { quatSet, type Quat } from './quat-core';
 
 /**
  * Multiplies two quaternions.
+ * 
  * The resulting quaternion represents the rotation of b followed by the rotation of a.
+ * 
  * @param out The quaternion to store the result in.
  * @param a The first quaternion to multiply.
  * @param b The second quaternion to multiply.
@@ -46,6 +48,7 @@ export function quatAdd(out: Quat, a: Readonly<Quat>, b: Readonly<Quat>): Quat {
  * while -q2 represents the same rotation as q2.
  * Exemple: q and -q represent the same rotation, but are in opposite hemispheres,
  * dot(q, -q) = -1 and acos(-1) = π, but the angle between them is 0.
+ * 
  * Rule of thumb: if the dot product is negative, always negate one quaternion first:
  * ```
  * if(quatDot(q1, q2) < 0) {

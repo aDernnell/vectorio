@@ -58,6 +58,8 @@ export function vec3QuatTransform(out: Vec3, a: Readonly<Vec3>, q: Readonly<Quat
  * Rotation is applied with left-handed convention: 
  * the rotation is clockwise when looking from the tip of the rotation axis towards the origin.
  * 
+ * Equivalent to translating the vector to the origin, applying the rotation, and then translating back.
+ * 
  * @param out The vector to store the result in.
  * @param a The vector to rotate.
  * @param origin The point to rotate around.
@@ -78,6 +80,8 @@ export function vec3RotateX(out: Vec3, a: Readonly<Vec3>, origin: Readonly<Vec3>
  * Rotation is applied with left-handed convention: 
  * the rotation is clockwise when looking from the tip of the rotation axis towards the origin.
  * 
+ * Equivalent to translating the vector to the origin, applying the rotation, and then translating back.
+ * 
  * @param out The vector to store the result in.
  * @param a The vector to rotate.
  * @param origin The point to rotate around.
@@ -97,6 +101,8 @@ export function vec3RotateY(out: Vec3, a: Readonly<Vec3>, origin: Readonly<Vec3>
  * 
  * Rotation is applied with left-handed convention: 
  * the rotation is clockwise when looking from the tip of the rotation axis towards the origin.
+ * 
+ * Equivalent to translating the vector to the origin, applying the rotation, and then translating back.
  * 
  * @param out The vector to store the result in.
  * @param a The vector to rotate.

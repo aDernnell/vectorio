@@ -13,10 +13,12 @@ export function mat3ExtractTranslation(out: Vec2, a: Readonly<Mat3>): Vec2 {
 
 /** 
  * Extracts 2D rotation angle from a 3x3 affine transformation matrix.
+ * 
  * Assumes 
  * - no skewing
  * - strictly positive scaling factors.
  * - matrix composition order is T * R * S (scale then rotate then translate).
+ * 
  * @param a The matrix to extract the rotation angle from.
  * @returns The rotation angle in radians.
  */
@@ -27,10 +29,12 @@ export function mat3ExtractAngle(a: Readonly<Mat3>): number {
 
 /** 
  * Extracts 2D scaling from a 3x3 affine transformation matrix.
+ * 
  * Assumes 
  * - no skewing
  * - strictly positive scaling factors.
  * - matrix composition order is T * R * S (scale then rotate then translate).
+ * 
  * @param out The vector to store the result in.
  * @param a The matrix to extract the scaling from.
  * @returns The out vector with the scaling values.

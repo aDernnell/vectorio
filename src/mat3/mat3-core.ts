@@ -41,7 +41,9 @@ export const MAT3_IDENTITY: Readonly<Mat3> = {
 
 /**
  * Creates a new 3x3 matrix.
+ * 
  * Data is provided in row-major order.
+ * 
  * If no parameters are provided, the identity matrix is created.
  * ```
  * | m00  m01  m02 |
@@ -105,7 +107,10 @@ export function mat3Clone(m: Readonly<Mat3>): Mat3 {
 }
 
 /** 
- * Sets matrix values. Data is provided in row-major order.
+ * Sets matrix values. 
+ * 
+ * Data is provided in row-major order.
+ * 
  * @param m The matrix to set values for.
  * @param m00 The value for the first row, first column.
  * @param m01 The value for the first row, second column.
@@ -158,7 +163,9 @@ export function mat3FillTrunc(m: Mat3, mat: Readonly<Mat4>): Mat3 {
 
 /**
  * Fills the matrix values by padding a 2x2 matrix.
+ * 
  * Uses identity values for the padding.
+ * 
  * @param m The matrix to fill values for.
  * @param mat The 2x2 matrix to copy values from.
  * @returns The m matrix with updated values.
@@ -201,6 +208,7 @@ export function mat3FillArr(m: Mat3, arr: ArrayLike<number>): Mat3 {
 /**
  * Checks if two 3x3 matrices are strictly equal
  * by comparing each corresponding element for strict equality (`===` operator).
+ * 
  * This comparison does not account for floating-point precision errors.
  * @param a The first matrix to compare.
  * @param b The second matrix to compare.
@@ -223,6 +231,7 @@ export function mat3StrictEquals(a: Readonly<Mat3>, b: Readonly<Mat3>): boolean 
 /**
  * Checks if two 3x3 matrices are approximately equal
  * by comparing each corresponding element with a specified tolerance (epsilon).
+ * 
  * This comparison accounts for floating-point precision errors.
  * @param a The first matrix to compare.
  * @param b The second matrix to compare.

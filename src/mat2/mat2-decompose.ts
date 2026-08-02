@@ -3,10 +3,12 @@ import { Vec2, vec2Set } from '../vec2';
 
 /**
  * Extracts the rotation angle from a 2x2 affine transformation matrix.
+ * 
  * Assumes
  * - no skewing
  * - strictly positive scaling factors.
  * - matrix composition order is R * S (scale then rotate).
+ * 
  * @param a The matrix to extract the angle from.
  * @returns The rotation angle in radians.
  */
@@ -17,10 +19,12 @@ export function mat2ExtractAngle(a: Readonly<Mat2>): number {
 
 /**
  * Extracts the scaling factors from a 2x2 affine transformation matrix.
+ * 
  * Assumes
  * - no skewing
  * - strictly positive scaling factors.
  * - matrix composition order is R * S (scale then rotate).
+ * 
  * @param out The vector to store the result in.
  * @param a The matrix to extract the scaling factors from.
  * @returns The out vector with the scaling factors.

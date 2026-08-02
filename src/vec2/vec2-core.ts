@@ -64,7 +64,9 @@ export function vec2FillWith(out: Vec2, arr: Array<number>): Vec2 {
 /**
  * Checks if two Vec2 are strictly equal
  * by comparing each corresponding component for strict equality (`===` operator).
+ * 
  * This comparison does not account for floating-point precision errors.
+ * 
  * @param a The first Vec2 to compare.
  * @param b The second Vec2 to compare.
  * @returns True if the Vec2 are strictly equal, false otherwise.
@@ -76,7 +78,9 @@ export function vec2StrictEquals(a: Readonly<Vec2>, b: Readonly<Vec2>): boolean 
 /**
  * Checks if two Vec2 are approximately equal
  * by comparing each corresponding component with a specified tolerance (epsilon).
+ * 
  * This comparison accounts for floating-point precision errors.
+ * 
  * @param a The first Vec2 to compare.
  * @param b The second Vec2 to compare.
  * @param epsilon The tolerance for approximate equality, default is 1e-6.

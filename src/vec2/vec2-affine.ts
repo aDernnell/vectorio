@@ -4,7 +4,9 @@ import type { Mat2 } from "../mat2";
 
 /**
  * Transforms a Vec2 by a 2x2 matrix.
+ * 
  * Uses column vector post-multiplication: v' = M * v
+ * 
  * @param out The vector to store the result in.
  * @param a The vector to transform.
  * @param m The 2x2 matrix to transform the vector by.
@@ -17,7 +19,11 @@ export function vec2MatTransform(out: Vec2, a: Readonly<Vec2>, m: Readonly<Mat2>
 /**
  * Rotates a Vec2 around a specified origin by a given angle in radians.
  * 
- * TODO rotation direction / coordinate system ?
+ * A positive angle rotates counter-clockwise when the 2D world origin 
+ * is the bottom-left corner of the screen (X right, Y up).
+ * This is equivalent to a left-handed rotation around an axis parallel to the Z axis in 3D space.
+ * 
+ * Equivalent to translating the vector to the origin, applying the rotation, and then translating back.
  * 
  * @param out The vector to store the result in.
  * @param a The vector to rotate.

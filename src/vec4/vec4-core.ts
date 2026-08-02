@@ -82,7 +82,9 @@ export function vec4FillPad(out: Vec4, v: Readonly<Vec3>, w: number = 1): Vec4 {
 /**
  * Checks if two Vec4 are strictly equal
  * by comparing each corresponding component for strict equality (`===` operator).
+ * 
  * This comparison does not account for floating-point precision errors.
+ * 
  * @param a The first Vec4 to compare.
  * @param b The second Vec4 to compare.
  * @returns True if the Vec4 are strictly equal, false otherwise.
@@ -94,7 +96,9 @@ export function vec4StrictEquals(a: Readonly<Vec4>, b: Readonly<Vec4>): boolean 
 /**
  * Checks if two Vec4 are approximately equal
  * by comparing each corresponding component with a specified tolerance (epsilon).
+ * 
  * This comparison accounts for floating-point precision errors.
+ * 
  * @param a The first Vec4 to compare.
  * @param b The second Vec4 to compare.
  * @param epsilon The tolerance for approximate equality, default is 1e-6.

@@ -4,8 +4,11 @@ import { EPSILON } from '../utils';
 
 /**
  * Extracts the axis and angle of rotation from a quaternion.
+ * 
  * This method favors positive angles (exemple: 270° instead of -90°).
+ * 
  * If the quaternion represents no rotation, the axis will be set to (1, 0, 0) and the angle will be 0.
+ * 
  * @param out The output axis of rotation.
  * @param quat The input quaternion.
  * @returns The angle of rotation in radians.

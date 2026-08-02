@@ -70,7 +70,9 @@ export function vec2SquaredDistance(a: Readonly<Vec2>, b: Readonly<Vec2>): numbe
 
 /**
  * Calculates the dot product of two Vec2.
+ * 
  * In 2D, the dot product is a scalar value representing the projection of one vector onto another.
+ * 
  * @param a The first vector.
  * @param b The second vector.
  * @returns The dot product of the two vectors.
@@ -81,7 +83,10 @@ export function vec2Dot(a: Readonly<Vec2>, b: Readonly<Vec2>): number {
 
 /**
  * Calculates the cross product of two Vec2.
- * In 2D, the cross product is a scalar value representing the magnitude of the vector perpendicular to the plane defined by the two vectors.
+ * 
+ * In 2D, the cross product is a scalar value representing the magnitude 
+ * of the vector perpendicular to the plane defined by the two vectors.
+ * 
  * @param a The first vector.
  * @param b The second vector.
  * @returns The scalar value of the cross product.
@@ -114,7 +119,9 @@ export function vec2Angle(a: Readonly<Vec2>, b: Readonly<Vec2>): number {
 
 /**
  * Calculates the signed angle in radians between two Vec2.
+ * 
  * Angle is in the range [-pi, pi], where a positive value indicates a counter-clockwise rotation.
+ * 
  * @param from The starting vector.
  * @param to The ending vector.
  * @returns The signed angle in radians between the two vectors.

@@ -3,7 +3,9 @@ import type { Mat4 } from '../mat4';
 
 /**
  * Transforms a Vec4 by a 4x4 matrix.
+ * 
  * Uses column vector post-multiplication: v' = M * v
+ * 
  * @param out The vector to store the result in.
  * @param a The vector to transform.
  * @param m The 4x4 matrix to transform the vector by.

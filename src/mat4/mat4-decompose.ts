@@ -17,12 +17,15 @@ export function mat4ExtractTranslation(out: Vec3, a: Readonly<Mat4>): Vec3 {
 
 /**
  * Extracts ZYX Euler angles from a 4x4 affine transformation matrix.
+ * 
  * Angles are returned in radians.
+ * 
  * Assumes
  * - no skewing
  * - strictly positive scaling factors.
  * - rotation composition order is R = Rz * Ry * Rx (rotate around X first, then Y, then Z).
  * - transformation composition order is T * R * S (scale then rotate then translate).
+ * 
  * @param out The vector to store the Euler angles in.
  * @param a The matrix to extract Euler angles from.
  * @returns The out vector with the extracted Euler angles.
@@ -65,10 +68,12 @@ export function mat4ExtractEulerAngles(out: Vec3, a: Readonly<Mat4>): Vec3 {
 
 /**
  * Extracts scaling from a 4x4 affine transformation matrix.
+ * 
  * Assumes
  * - no skewing
  * - strictly positive scaling factors.
  * - transformation composition order is T * R * S (scale then rotate then translate).
+ * 
  * @param out The vector to store the scaling factors in.
  * @param a The matrix to extract scaling from.
  * @returns The out vector with the extracted scaling factors.

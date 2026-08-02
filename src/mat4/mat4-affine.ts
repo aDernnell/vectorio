@@ -4,7 +4,9 @@ import { Mat4, mat4Set } from './mat4-core';
 
 /**
  * Applies a 3D translation to a 4x4 affine transformation matrix.
+ * 
  * out = a * T, where T is the translation matrix.
+ * 
  * @param out The matrix to store the result in.
  * @param a The matrix to translate.
  * @param v The vector to translate by.
@@ -23,10 +25,14 @@ export function mat4Translate(out: Mat4, a: Readonly<Mat4>, v: Readonly<Vec3>): 
 
 /**
  * Applies a 3D axis-angle rotation to a 4x4 affine transformation matrix.
+ * 
  * out = a * R, where R is the rotation matrix.
+ * 
  * The rotation direction follows a left-handed convention 
  * (clockwise when looking from the tip of the vector towards the origin).
+ * 
  * Returns null for degenerate axis.
+ * 
  * @param out The matrix to store the result in.
  * @param a The matrix to rotate.
  * @param axis The axis to rotate around.
@@ -91,9 +97,12 @@ export function mat4Rotate(out: Mat4, a: Readonly<Mat4>, axis: Readonly<Vec3>, r
 
 /**
  * Applies a rotation around X axis to a 4x4 affine transformation matrix.
+ * 
  * out = a * Rx, where Rx is the rotation matrix around X axis.
+ * 
  * The rotation direction follows a left-handed convention 
  * (clockwise when looking from the tip of the axis vector towards the origin).
+ * 
  * @param out The matrix to store the result in.
  * @param a The matrix to rotate.
  * @param rad The angle in radians.
@@ -115,9 +124,12 @@ export function mat4RotateX(out: Mat4, a: Readonly<Mat4>, rad: number): Mat4 {
 
 /**
  * Applies a rotation around Y axis to a 4x4 affine transformation matrix.
+ * 
  * out = a * Ry, where Ry is the rotation matrix around Y axis.
+ * 
  * The rotation direction follows a left-handed convention 
  * (clockwise when looking from the tip of the axis vector towards the origin).
+ * 
  * @param out The matrix to store the result in.
  * @param a The matrix to rotate.
  * @param rad The angle in radians.
@@ -139,9 +151,12 @@ export function mat4RotateY(out: Mat4, a: Readonly<Mat4>, rad: number): Mat4 {
 
 /**
  * Applies a rotation around Z axis to a 4x4 affine transformation matrix.
+ * 
  * out = a * Rz, where Rz is the rotation matrix around Z axis.
+ * 
  * The rotation direction follows a left-handed convention 
  * (clockwise when looking from the tip of the axis vector towards the origin).
+ * 
  * @param out The matrix to store the result in.
  * @param a The matrix to rotate.
  * @param rad The angle in radians.
@@ -163,11 +178,15 @@ export function mat4RotateZ(out: Mat4, a: Readonly<Mat4>, rad: number): Mat4 {
 
 /**
  * Applies ZYX Euler rotation to a 4x4 affine transformation matrix.
+ * 
  * out = a * Rz * Ry * Rx (rotate around X first, then Y, then Z).
+ * 
  * The rotation direction follows a left-handed convention 
  * (clockwise when looking from the tip of the axis vector towards the origin).
+ * 
  * Equivalent to calling mat4RotateZ, mat4RotateY, and then mat4RotateX in sequence
  * but faster due to fewer operations.
+ * 
  * @param out The matrix to store the result in.
  * @param a The matrix to rotate.
  * @param rad The Euler angles in radians.
@@ -228,7 +247,9 @@ export function mat4RotateZYX(out: Mat4, a: Readonly<Mat4>, rad: Readonly<Vec3>)
 
 /**
  * Applies 3D scale to a 4x4 affine transformation matrix.
+ * 
  * out = a * S, where S is the scale matrix.
+ * 
  * @param out The matrix to store the result in.
  * @param a The matrix to scale.
  * @param v The scale vector.
@@ -247,7 +268,9 @@ export function mat4Scale(out: Mat4, a: Readonly<Mat4>, v: Readonly<Vec3>): Mat4
 
 /**
  * Fills the matrix values with a 3D translation transform.
+ * 
  * Equivalent to calling mat4Translate on an identity matrix, but faster due to fewer operations.
+ * 
  * @param out The matrix to fill values for.
  * @param v The translation vector.
  * @returns The out matrix with the translation transform.
@@ -265,10 +288,14 @@ export function mat4FillTranslation(out: Mat4, v: Readonly<Vec3>): Mat4 {
 
 /**
  * Fills the matrix values with a 3D axis-angle rotation transform.
+ * 
  * The rotation direction follows a left-handed convention 
- * (clockwise when looking from the tip of the vector towards the origin)
+ * (clockwise when looking from the tip of the vector towards the origin).
+ * 
  * Returns null for degenerate axis.
+ * 
  * Equivalent to calling mat4Rotate on an identity matrix, but faster due to fewer operations.
+ * 
  * @param out The matrix to fill values for.
  * @param axis The axis of rotation.
  * @param rad The rotation angle in radians.
@@ -311,9 +338,12 @@ export function mat4FillRotation(out: Mat4, axis: Readonly<Vec3>, rad: number): 
 
 /**
  * Fills the matrix values with an X-axis rotation transform.
+ * 
  * The rotation direction follows a left-handed convention 
  * (clockwise when looking from the tip of the axis vector towards the origin)
+ * 
  * Equivalent to calling mat4RotateX on an identity matrix, but faster due to fewer operations.
+ * 
  * @param out The matrix to fill values for.
  * @param rad The rotation angle in radians.
  * @returns The out matrix with the rotation transform.
@@ -334,9 +364,12 @@ export function mat4FillRotationX(out: Mat4, rad: number): Mat4 {
 
 /**
  * Fills the matrix values with a Y-axis rotation transform.
+ * 
  * The rotation direction follows a left-handed convention 
- * (clockwise when looking from the tip of the axis vector towards the origin)
+ * (clockwise when looking from the tip of the axis vector towards the origin).
+ * 
  * Equivalent to calling mat4RotateY on an identity matrix, but faster due to fewer operations.
+ * 
  * @param out The matrix to fill values for.
  * @param rad The rotation angle in radians.
  * @returns The out matrix with the rotation transform.
@@ -357,9 +390,12 @@ export function mat4FillRotationY(out: Mat4, rad: number): Mat4 {
 
 /**
  * Fills the matrix values with a Z-axis rotation transform.
+ * 
  * The rotation direction follows a left-handed convention 
- * (clockwise when looking from the tip of the axis vector towards the origin)
+ * (clockwise when looking from the tip of the axis vector towards the origin).
+ * 
  * Equivalent to calling mat4RotateZ on an identity matrix, but faster due to fewer operations.
+ * 
  * @param out The matrix to fill values for.
  * @param rad The rotation angle in radians.
  * @returns The out matrix with the rotation transform.
@@ -380,9 +416,12 @@ export function mat4FillRotationZ(out: Mat4, rad: number): Mat4 {
 
 /**
  * Fills the matrix values as a ZYX Euler rotation transform.
+ * 
  * The rotation direction follows a left-handed convention 
- * (clockwise when looking from the tip of the axis vector towards the origin)
+ * (clockwise when looking from the tip of the axis vector towards the origin).
+ * 
  * Equivalent to calling mat4RotateZYX on an identity matrix, but faster due to fewer operations.
+ * 
  * @param out The matrix to fill values for.
  * @param rad The rotation angles in radians.
  * @returns The out matrix with the rotation transform.
@@ -407,7 +446,9 @@ export function mat4FillRotationZYX(out: Mat4, rad: Readonly<Vec3>): Mat4 {
 
 /**
  * Fills the matrix values with a 3D scale transform.
+ * 
  * Equivalent to calling mat4Scale on an identity matrix, but faster due to fewer operations.
+ * 
  * @param out The matrix to fill values for.
  * @param v The scale vector.
  * @returns The out matrix with the scale transform.

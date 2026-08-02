@@ -110,6 +110,10 @@ export function mat3FillTranslation(out: Mat3, v: Readonly<Vec2>): Mat3 {
 /** 
  * Fills a 3x3 matrix as a 2D rotation transformation.
  * 
+ * A positive angle rotates counter-clockwise when the origin 
+ * is the bottom-left corner of the screen (X right, Y up).
+ * This is equivalent to a left-handed rotation around the Z axis in 3D space.
+ * 
  * Equivalent to calling mat3Rotate on an identity matrix, but faster due to fewer operations.
  * 
  * @param out The matrix to store the result in.

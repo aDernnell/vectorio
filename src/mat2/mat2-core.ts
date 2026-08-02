@@ -28,7 +28,9 @@ export const MAT2_IDENTITY: Readonly<Mat2> = {
 
 /**
  * Creates a new 2x2 matrix.
+ * 
  * Data is provided in row-major order.
+ * 
  * If no parameters are provided, the identity matrix is created.
  * ```
  * | m00  m01 |
@@ -79,7 +81,9 @@ export function mat2Clone(m: Mat2): Mat2 {
 
 /**
  * Sets the values of the matrix.
+ * 
  * Data is provided in row-major order.
+ * 
  * @param m The matrix to set values for.
  * @param m00 The value for the first row, first column.
  * @param m01 The value for the first row, second column.
@@ -134,6 +138,7 @@ export function mat2FillArr(m: Mat2, arr: ArrayLike<number>): Mat2 {
 /**
  * Checks if two 2x2 matrices are strictly equal
  * by comparing each corresponding element for strict equality (`===` operator).
+ * 
  * This comparison does not account for floating-point precision errors.
  * @param a The first matrix to compare.
  * @param b The second matrix to compare.
@@ -146,6 +151,7 @@ export function mat2StrictEquals(a: Readonly<Mat2>, b: Readonly<Mat2>): boolean 
 /**
  * Checks if two 2x2 matrices are approximately equal
  * by comparing each corresponding element with a specified tolerance (epsilon).
+ * 
  * This comparison accounts for floating-point precision errors.
  * @param a The first matrix to compare.
  * @param b The second matrix to compare.

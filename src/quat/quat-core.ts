@@ -72,6 +72,7 @@ export function quatStrictEquals(a: Readonly<Quat>, b: Readonly<Quat>): boolean 
 /**
  * Checks if two quaternions are approximately equal 
  * by checking if they point to the same direction by a given tolerance (epsilon).
+ * 
  * Both quaternions are assumed to be unit length.
  *
  * @param a The first quaternion (must be normalized).

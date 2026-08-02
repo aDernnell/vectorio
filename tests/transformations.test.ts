@@ -14,6 +14,8 @@ const m4A: Mat4 = mat4.create();
 const m4B: Mat4 = mat4.create();
 const m4C: Mat4 = mat4.create();
 
+// TODO to move to each mat2, mat3, mat4 test file ?
+
 describe('transform consistency', function () {
     beforeEach(function () {
         mat3.reset(m3A);
