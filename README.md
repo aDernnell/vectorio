@@ -1,3 +1,7 @@
+[![Coverage Status](https://coveralls.io/repos/github/aDernnell/vectorio/badge.svg?branch=main)](https://coveralls.io/github/aDernnell/vectorio?branch=main)
+[![npm version](https://badge.fury.io/js/@adernnell%2Fvectorio.svg)](https://badge.fury.io/js/@adernnell%2Fvectorio)
+[![GitHub license](https://img.shields.io/github/license/aDernnell/vectorio)](https://github.com/aDernnell/vectorio/blob/main/LICENSE)
+
 # Vectorio
 
 Vectorio provides the essential mathematical building blocks for custom 2D/3D game engines or graphics projects written in TypeScript.
