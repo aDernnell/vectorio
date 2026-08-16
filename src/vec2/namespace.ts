@@ -32,7 +32,7 @@ export {
     vec2Rotate as rotate,
     vec2MatTransform as matTransform,
 
-    // proeprties
+    // properties
     vec2Magnitude as magnitude,
     vec2SquaredMagnitude as squaredMagnitude,
 
